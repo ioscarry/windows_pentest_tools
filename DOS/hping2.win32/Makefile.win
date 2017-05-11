@@ -1,0 +1,156 @@
+# Project: Project1
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = wintimer.o antigetopt.o apd.o ars.o arsglue.o cksum.o datafiller.o datahandler.o display_ipopt.o gethostname.o getifname.o getlhs.o getusec.o hstring.o ip_opt_build.o libpcap_stuff.o listen.o logicmp.o main.o memlockall.o memstr.o opensockraw.o parseoptions.o relid.o resolve.o rtt.o send.o sendhcmp.o sendicmp.o sendip.o sendip_handler.o sendrawip.o sendtcp.o sendudp.o sockopt.o split.o statistics.o strlcpy.o usage.o version.o waitpacket.o winctrl_z.o winscan.o $(RES)
+LINKOBJ  = wintimer.o antigetopt.o apd.o ars.o arsglue.o cksum.o datafiller.o datahandler.o display_ipopt.o gethostname.o getifname.o getlhs.o getusec.o hstring.o ip_opt_build.o libpcap_stuff.o listen.o logicmp.o main.o memlockall.o memstr.o opensockraw.o parseoptions.o relid.o resolve.o rtt.o send.o sendhcmp.o sendicmp.o sendip.o sendip_handler.o sendrawip.o sendtcp.o sendudp.o sockopt.o split.o statistics.o strlcpy.o usage.o version.o waitpacket.o winctrl_z.o winscan.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" ../../../../Dev-Cpp/lib/dnet/libdnet.a -L"C:/Dev-Cpp/lib/winpcap" ../../../../Dev-Cpp/lib/libiphlpapi.a ../../../../Dev-Cpp/lib/libwinmm.a ../../../../Dev-Cpp/lib/libws2_32.a ../../../../Dev-Cpp/lib/libwsock32.a ../../../../Dev-Cpp/lib/winpcap/libwpcap.a   
+INCS =  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/include/winpcap" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/include/winpcap" 
+BIN  = hping.exe
+CXXFLAGS = $(CXXINCS)   -O2
+CFLAGS = $(INCS) -D__i386__   -O2
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before hping.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "hping.exe" $(LIBS)
+
+wintimer.o: wintimer.c
+	$(CC) -c wintimer.c -o wintimer.o $(CFLAGS)
+
+antigetopt.o: antigetopt.c
+	$(CC) -c antigetopt.c -o antigetopt.o $(CFLAGS)
+
+apd.o: apd.c
+	$(CC) -c apd.c -o apd.o $(CFLAGS)
+
+ars.o: ars.c
+	$(CC) -c ars.c -o ars.o $(CFLAGS)
+
+arsglue.o: arsglue.c
+	$(CC) -c arsglue.c -o arsglue.o $(CFLAGS)
+
+cksum.o: cksum.c
+	$(CC) -c cksum.c -o cksum.o $(CFLAGS)
+
+datafiller.o: datafiller.c
+	$(CC) -c datafiller.c -o datafiller.o $(CFLAGS)
+
+datahandler.o: datahandler.c
+	$(CC) -c datahandler.c -o datahandler.o $(CFLAGS)
+
+display_ipopt.o: display_ipopt.c
+	$(CC) -c display_ipopt.c -o display_ipopt.o $(CFLAGS)
+
+gethostname.o: gethostname.c
+	$(CC) -c gethostname.c -o gethostname.o $(CFLAGS)
+
+getifname.o: getifname.c
+	$(CC) -c getifname.c -o getifname.o $(CFLAGS)
+
+getlhs.o: getlhs.c
+	$(CC) -c getlhs.c -o getlhs.o $(CFLAGS)
+
+getusec.o: getusec.c
+	$(CC) -c getusec.c -o getusec.o $(CFLAGS)
+
+hstring.o: hstring.c
+	$(CC) -c hstring.c -o hstring.o $(CFLAGS)
+
+ip_opt_build.o: ip_opt_build.c
+	$(CC) -c ip_opt_build.c -o ip_opt_build.o $(CFLAGS)
+
+libpcap_stuff.o: libpcap_stuff.c
+	$(CC) -c libpcap_stuff.c -o libpcap_stuff.o $(CFLAGS)
+
+listen.o: listen.c
+	$(CC) -c listen.c -o listen.o $(CFLAGS)
+
+logicmp.o: logicmp.c
+	$(CC) -c logicmp.c -o logicmp.o $(CFLAGS)
+
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+memlockall.o: memlockall.c
+	$(CC) -c memlockall.c -o memlockall.o $(CFLAGS)
+
+memstr.o: memstr.c
+	$(CC) -c memstr.c -o memstr.o $(CFLAGS)
+
+opensockraw.o: opensockraw.c
+	$(CC) -c opensockraw.c -o opensockraw.o $(CFLAGS)
+
+parseoptions.o: parseoptions.c
+	$(CC) -c parseoptions.c -o parseoptions.o $(CFLAGS)
+
+relid.o: relid.c
+	$(CC) -c relid.c -o relid.o $(CFLAGS)
+
+resolve.o: resolve.c
+	$(CC) -c resolve.c -o resolve.o $(CFLAGS)
+
+rtt.o: rtt.c
+	$(CC) -c rtt.c -o rtt.o $(CFLAGS)
+
+send.o: send.c
+	$(CC) -c send.c -o send.o $(CFLAGS)
+
+sendhcmp.o: sendhcmp.c
+	$(CC) -c sendhcmp.c -o sendhcmp.o $(CFLAGS)
+
+sendicmp.o: sendicmp.c
+	$(CC) -c sendicmp.c -o sendicmp.o $(CFLAGS)
+
+sendip.o: sendip.c
+	$(CC) -c sendip.c -o sendip.o $(CFLAGS)
+
+sendip_handler.o: sendip_handler.c
+	$(CC) -c sendip_handler.c -o sendip_handler.o $(CFLAGS)
+
+sendrawip.o: sendrawip.c
+	$(CC) -c sendrawip.c -o sendrawip.o $(CFLAGS)
+
+sendtcp.o: sendtcp.c
+	$(CC) -c sendtcp.c -o sendtcp.o $(CFLAGS)
+
+sendudp.o: sendudp.c
+	$(CC) -c sendudp.c -o sendudp.o $(CFLAGS)
+
+sockopt.o: sockopt.c
+	$(CC) -c sockopt.c -o sockopt.o $(CFLAGS)
+
+split.o: split.c
+	$(CC) -c split.c -o split.o $(CFLAGS)
+
+statistics.o: statistics.c
+	$(CC) -c statistics.c -o statistics.o $(CFLAGS)
+
+strlcpy.o: strlcpy.c
+	$(CC) -c strlcpy.c -o strlcpy.o $(CFLAGS)
+
+usage.o: usage.c
+	$(CC) -c usage.c -o usage.o $(CFLAGS)
+
+version.o: version.c
+	$(CC) -c version.c -o version.o $(CFLAGS)
+
+waitpacket.o: waitpacket.c
+	$(CC) -c waitpacket.c -o waitpacket.o $(CFLAGS)
+
+winctrl_z.o: winctrl_z.c
+	$(CC) -c winctrl_z.c -o winctrl_z.o $(CFLAGS)
+
+winscan.o: winscan.c
+	$(CC) -c winscan.c -o winscan.o $(CFLAGS)
