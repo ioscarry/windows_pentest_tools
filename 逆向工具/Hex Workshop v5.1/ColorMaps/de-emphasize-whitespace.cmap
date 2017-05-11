@@ -1,0 +1,61 @@
+##############################################################################
+# Hex Workshop Color Map Definition File (cmap)
+#
+# Format
+# 	"<hex_sequence>"=FOREGROUND_RGB [, BACKGROUND_RGB]
+# 
+# <hex_sequence> 
+# 	The hex sequence must a valid quoted hex string and can represent 
+# 	between 1 to 32 bytes of data.
+# 
+# FOREGROUND_RGB
+# 	Identifies the desired ground color for a particular hex sequence.
+# 
+# BACKGROUND_RGB
+# 	Idenitifed the desired background color for a particular hex 
+#  	sequeunce.This is optional and if not present, Hex Workshop will use  
+# 	the default background color.
+# 
+# RGB Format
+# 	RGB(<red>, <green>, <blue>)
+# 
+# 	The <red>, <green>, and <blue> tags define the Red, Green, and Blue
+#	color components for the foreground or background color.  All three 
+#  	values are required and must be specified in decimal (not 
+#	hexadecimal).
+# 
+# Examples 
+# 	Example 1, to display all instances of 'FFFF' in green:
+# 		"FFFF"=RGB(0, 255, 0)
+# 
+# 	Example 2, to display all instances of 'DDDD' in black on yellow:
+# 		"DDDD"=RGB(0, 0, 0), RGB(255, 255, 0)
+# 
+# Comments
+# 	You may use a pound symbol ('#') to indicate a comment, however, 
+# 	comments are lost when modifying a color mappings within Hex Workshop.   
+# 	The order of the color mapping definitions may also be modified when
+#	saving.
+# 
+# Other tags
+# 	!author="<author_name>"
+# 
+# 		Identifies the author of the color map.
+# 
+# 	!description="<color_map_description>"
+# 
+# 		Describes the intended purpose of the color map.
+#
+#
+# Please share your color mappings with other users by emailing them to 
+# colormaps@bpsoft.com.  BreakPoint Software will maintain an archive of 
+# user supplied color maps.  Please include a description of the color map,
+# your email address, your name, your company, and your web site for displaying
+# on our web site.  You may also submit your color map anonymously.
+##
+
+
+"09" = RGB(208, 208, 208)
+"0A" = RGB(208, 208, 208)
+"0D" = RGB(208, 208, 208)
+"20" = RGB(208, 208, 208)

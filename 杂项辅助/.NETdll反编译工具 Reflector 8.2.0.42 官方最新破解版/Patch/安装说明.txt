@@ -1,0 +1,26 @@
+1.下载安装原程序，然后运行 Reflector.exe
+2.运行注册机，点击 Generate 获得序列号
+3.把序列号填写到 Reflector 软件上
+4.断开网络，点击 Activate 激活
+5.提示说无法连接服务器，点击手动激活 Manually Activate
+6.拷贝 Reflector 左侧的一大堆请求字符串，粘贴到注册机左侧框框，会自动计算注册码
+7.拷贝注册机右侧的注册信息，粘贴到 Reflector 右侧，激活完成
+8.激活之后，最好关闭自动更新之类的设置！
+
+吾乐吧软件站 提供中文注册说明！更多绿色软件，请访问吾乐吧软件站：
+http://www.wuleba.com
+
+
+
+
+1. Disconnect from internet.
+2. Copy ".Net Reflector" to your hard drive.
+3. Run "Reflector.exe" from ".Net Reflector" folder.
+4. Use my Keygen to Generate a valid Serial Number.
+5. Put Serial Number in application.
+6. Click Activate and then Manually Activate.
+7. Copy Activation Request from application and paste in Keygen.
+8. Copy Activation Response from Keygen and paste in application.
+9. Click Finish and then Close.
+
+IF YOU LIKE THIS PROGRAM YOU SHOULD BUY IT!

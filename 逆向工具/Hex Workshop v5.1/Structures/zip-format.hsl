@@ -1,0 +1,190 @@
+/*****************************************************************************
+ * zip.hsl - Structure definitions for the .zip file format
+ * libraries.
+ *  
+ * Copyright (c) 2003 BreakPoint Software, Inc.  All Rights Reserved
+ *
+ *****************************************************************************
+ * Revision History:
+ *  05/01/03 - RJA - Original
+ *  03/20/04 - RJA - Added #pragma verifies
+ */
+
+#include "standard-types.hsl"
+
+#pragma displayname("zip structures")
+#pragma fileextensions(".zip;.jar")
+
+#pragma byteorder(little_endian)
+
+// ZIP uses 2 bytes for their version field
+#pragma enumsize(2)
+typedef enum tagVERSION_MADE_BY
+{
+    DOS_OS2         = 0,
+    AMIGA           = 1,
+    OpenVMS         = 2,
+    UNIX            = 3,
+    VM_CMS          = 4,
+    ATARI_ST        = 5,
+    OS2_HPFS        = 6,
+    MACINTOSH       = 7,
+    Z_SYSTEM        = 8,
+    CPM             = 9
+    WINDOWS_NTFS    = 10,
+    MVS             = 11,
+    VSE             = 12,
+    ACORN_RISC      = 13,
+    VFAT            = 14,
+    ALTERNATIVE_MVS = 15,
+    BEOS            = 16,
+    TANDEM          = 17
+} VERSION_MADE_BY ; 
+
+// Zip uses 2 bytes for their compression method field
+#pragma enumsize(2)
+typedef enum tagCOMPRESSION_METHOD
+{
+    STORED           = 0,
+    SHRUNK           = 1,
+    REDUCED_FACTOR_1 = 2,
+    REDUCED_FACTOR_2 = 3,
+    REDUCED_FACTOR_3 = 4,
+    REDUCED_FACTOR_4 = 5,
+    IMPLODED         = 6,
+    TOKENZIED        = 7,
+    DEFLATED         = 8,
+    DEFLATE64        = 9,
+    LIB_IMPLODE      = 10,
+} COMPRESSION_METHOD;
+
+
+struct LocalFileHeader
+{
+    char Signature[4] ; // 504b0304
+#pragma verify match_var_int("Signature[0]", "0x50")
+#pragma verify match_var_int("Signature[1]", "0x4B")
+#pragma verify match_var_int("Signature[2]", "0x03")
+#pragma verify match_var_int("Signature[3]", "0x04")
+    WORD VersionNeededToExtract ;
+    WORD GeneralPurposeBitFlag ;
+    COMPRESSION_METHOD CompressionMethod ;
+    DOSTIME LastModFileTime ;
+    DOSDATE LastModFileDate ;
+    DWORD Crc32 ;
+    DWORD CompressedSize ;
+    DWORD UncompressedSize ;
+    WORD  FileNameLength ;
+    WORD  ExtraFieldLength ;
+    char  FileName[FileNameLength] ;
+    blob  ExtraField[ExtraFieldLength] ;    
+} ;
+
+
+struct DataDescriptor
+{
+    DWORD Crc32 ;
+    DWORD CompressedSize ;
+    DWORD UncompressedSize ;
+} ;
+
+
+struct ZIP64DataDescriptor
+{
+    DWORD Crc32 ;
+    QUAD CompressedSize ;
+    QUAD UncompressedSize ;
+} ;
+
+
+struct EndOfCentralDirectory
+{
+    char Signature[4] ;    // 504b0506
+#pragma verify match_var_int("Signature[0]", "0x50")
+#pragma verify match_var_int("Signature[1]", "0x4B")
+#pragma verify match_var_int("Signature[2]", "0x05")
+#pragma verify match_var_int("Signature[3]", "0x06")
+    WORD DiskNumber ;
+    WORD CentralDirectoryStartDisk ;
+    WORD CentralDirectoryStartOffset ;
+    WORD NumEntries ;
+    DWORD CentralDirectorySize ;
+    DWORD CentralDirectoryOffset ;
+    WORD ZipCommentLength ;
+    char ZipComment[ZipCommentLength] ;
+} ;
+
+
+struct ZIP64EndOfCentralDirectoryLocator
+{
+    char Signature[4] ;    // 504b0606
+#pragma verify match_var_int("Signature[0]", "0x50")
+#pragma verify match_var_int("Signature[1]", "0x4B")
+#pragma verify match_var_int("Signature[2]", "0x06")
+#pragma verify match_var_int("Signature[3]", "0x06")
+    DWORD DiskNumber ;
+    QUAD ZIP64RelativeOffset ;
+    DWORD TotalNumDisks ;
+} ;
+
+
+struct DigitalSignature
+{
+    char Signature[4] ;    // 504b0505
+#pragma verify match_var_int("Signature[0]", "0x50")
+#pragma verify match_var_int("Signature[1]", "0x4B")
+#pragma verify match_var_int("Signature[2]", "0x05")
+#pragma verify match_var_int("Signature[3]", "0x05")
+    WORD SizeOfData ;
+    blob content[SizeOfData] ;
+} ;
+
+
+struct CentralDirectoryFileHeader
+{
+    char Signature[4] ;    // 504b0102
+#pragma verify match_var_int("Signature[0]", "0x50")
+#pragma verify match_var_int("Signature[1]", "0x4B")
+#pragma verify match_var_int("Signature[2]", "0x01")
+#pragma verify match_var_int("Signature[3]", "0x02")
+    VERSION_MADE_BY VersionMadeBy ;
+    WORD VersionNeededToExtract ;
+    WORD GeneralPurposeBitFlag ;
+    COMPRESSION_METHOD CompressionMethod ;
+    DOSTIME LastModFileTime ;
+    DOSDATE LastModFileDate ;
+    DWORD Crc32 ;
+    DWORD CompressedSize ;
+    DWORD UncompressedSize ;
+    WORD  FileNameLength ;
+    WORD  ExtraFieldLength ;
+    WORD  FileCommentLength ;
+    WORD  DiskNumberStart ;
+    WORD  InternalFileAttributes ;
+    DWORD ExternalFileAttributes ;
+    DWORD RelativeOffsetOfLocalHeader ;
+
+    char  FileName[FileNameLength] ;
+    blob  ExtraField[ExtraFieldLength] ;
+    char  FileComment[FileCommentLength] ;
+} ;
+
+
+struct ZIP64EndOfCentralDirectory
+{
+    char Signature[4] ;    // 504b0606
+#pragma verify match_var_int("Signature[0]", "0x50")
+#pragma verify match_var_int("Signature[1]", "0x4B")
+#pragma verify match_var_int("Signature[2]", "0x06")
+#pragma verify match_var_int("Signature[3]", "0x06")
+    QUAD SizeOfCentralDirRecord ;
+    VERSION_MADE_BY VersionMadeBy ;
+    WORD VersionNeededToExtract ;
+    DWORD DiskNumber ;
+    DWORD StartCentralDirectoryDiskNumber ;
+    QUAD CentralDirectoryEntriesOnDisk ;
+    QUAD CentralDirectoryTotalEntries ;
+    QUAD CentralDirectorySize ;
+    QUAD CentralDirectoryOffsetStartDisk ;   
+   // zip64 extensible data sector 
+} ;

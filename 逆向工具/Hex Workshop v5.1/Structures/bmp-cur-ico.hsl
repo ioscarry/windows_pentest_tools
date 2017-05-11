@@ -1,0 +1,87 @@
+/*****************************************************************************
+ * bmp-cur-ico.hsl - Structure definitions for the .bmp, .cur, and .ico file formats
+ *  
+ * Copyright (c) 2003-2007 BreakPoint Software, Inc.  All Rights Reserved
+ *
+ *****************************************************************************
+ * Revision History:
+ *  05/01/03 - RJA - Original
+ *  10/06/07 - RJA - Added displayname, fileextensions
+ */
+
+#include "standard-types.hsl"
+
+#pragma displayname("Bitmap, Cursor, Icon") ;
+#pragma fileextensions(".bmp;.cur;.ico") ;
+
+#pragma byteorder(little_endian) 
+
+struct BITMAPFILEHEADER {
+    WORD    bfType;
+    DWORD   bfSize;
+    WORD    bfReserved1;
+    WORD    bfReserved2;
+    DWORD   bfOffBits;
+} ;
+
+struct BITMAPINFOHEADER {
+    DWORD   biSize;
+    LONG    biWidth;
+    LONG    biHeight;
+    WORD    biPlanes;
+    WORD    biBitCount;
+    DWORD   biCompression;
+    DWORD   biSizeImage;
+    LONG    biXPelsPerMeter;
+    LONG    biYPelsPerMeter;
+    DWORD   biClrUsed;
+    DWORD   biClrImportant;
+} ;
+
+struct RGBQUAD {
+    UBYTE    rgbBlue;
+    UBYTE    rgbGreen;
+    UBYTE    rgbRed;
+    UBYTE    rgbReserved;
+} ;
+
+struct BITMAPCOREHEADER {
+    DWORD   bcSize;
+    WORD    bcWidth;
+    WORD    bcHeight;
+    WORD    bcPlanes;
+    WORD    bcBitCount;
+} ;
+
+struct RGBTRIPLE {
+    UBYTE    rgbtBlue;
+    UBYTE    rgbtGreen;
+    UBYTE    rgbtRed;
+} ;
+
+struct BITMAPCOREINFO {
+    struct BITMAPCOREHEADER bmciHeader;
+    struct RGBTRIPLE        bmciColors[1];
+} ;
+
+struct ICONDIRENTRY {
+    UBYTE  bWidth;
+    UBYTE  bHeight;
+    UBYTE  bColorCount;
+    UBYTE  bReserved;
+    WORD   wPlanes;
+    WORD   wBitCount;
+    DWORD  dwBytesInRes;
+    DWORD  dwImageOffset;
+};
+
+struct CURSORDIRENTRY {
+    UBYTE  bWidth;
+    UBYTE  bHeight;
+    UBYTE  bColorCount;
+    UBYTE  bReserved;
+    WORD   wXHotspot;
+    WORD   wYHotspot;
+    DWORD  lBytesInRes;
+    DWORD  dwImageOffset;
+} ;

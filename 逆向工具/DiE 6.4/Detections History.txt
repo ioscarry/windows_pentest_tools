@@ -1,0 +1,139 @@
+-+- DiE 0.64 [Дата: 25.04.2007 Время: 18:41]
+
+[+] Private exe Protector 2.0           - (Hard)
+[+] Armadillo 4.54                      - (Hard/Heuristic)
+[+] ASProtect 1.32 build 10.20          - (Hard)
+[+] ASProtect 1.35 build 04.25          - (Hard)
+[+] ORiEN 2.11 / 2.12                   - (Hard/Heuristic)
+[+] yoda's Crypter 1.3                  - (Hard/Heuristic)
+[*] Улучшено определение RLPack
+[*] Улучшено определение Private exe Protector
+[!] Исправлено определение PECompact
+[!] Исправлено определение ASProtect
+[!] Исправлено определение Themida
+[!] Исправлено определение Enigma Protector
+
+-+- DiE 0.63 [Дата: 22.02.2007 Время: 21:21]
+
+[+] NTkrnl Secure Suite 0.1             - (Heuristic)
+[+] Armadillo 4.64                      - (Hard/Heuristic)
+[+] Armadillo 4.66                      - (Hard/Heuristic)
+[+] Private exe Protector 1.8 - 1.9     - (Hard)
+[+] Themida 1.5.3.0                     - (Hard)
+[+] Themida 1.5.0.0                     - (Hard)
+[+] Themida 1.3.5.5                     - (Hard)
+[+] Themida 1.2.0.1                     - (Hard)
+[+] Obsidium 1.3.3.1                    - (Hard)
+[+] Xtreme-Protector 1.06               - (Hard)
+[+] Xtreme-Protector 1.07 - 1.08        - (Hard)
+[+] Themida                             - (Heuristic)
+[+] Xtreme-Protector                    - (Heuristic)
+[+] Themida 1.x.x.x                     - (Hard)
+[+] NTkrnl Secure Suite 0.1             - (Hard)
+[+] PELock 1.x                          - (Hard)
+[+] PELock 1.06                         - (Heuristic)
+[+] RLPack 1.xx | FullEdition           - (Heuristic)
+[+] RLPack 1.xx | BasicEdition          - (Heuristic)
+[+] RLPack 1.16 | FullEdition           - (Hard)
+[+] RLPack 1.16 | BasicEdition          - (Hard)
+[+] PECompact 1.xx                      - (Heuristic)
+[+] Simple Pack 1.xx [Method 2]         - (Heuristic)
+[+] Simple Pack 1.11 [Method 2]         - (Hard)
+[+] Simple Pack 1.12 / 1.21  [Method 2] - (Hard)
+[+] ExeStealth 2.7x                     - (Heuristic)
+[+] ExeStealth 2.75                     - (Hard)
+[+] ExeStealth 2.73                     - (Hard)
+[+] Obsidium 1.3.0                      - (Hard)
+[+] Krypton 0.5                         - (Hard/Heuristic)
+[+] Armadillo 4.42                      - (Hard/Heuristic)
+[+] NsPack 3.x                          - (Heuristic)
+[+] NsPack 2.x                          - (Heuristic)
+[+] ASProtect 2.xx | Private            - (Hard)
+[+] ASProtect 2.3 SKE [build 06.26]     - (Hard)
+[+] ASProtect 2.3 SKE [build 05.14]     - (Hard)
+[+] ASProtect 1.35 build 04.25 / 06.26  - (Hard)
+[+] Enigma protector 1.xx               - (Heuristic)
+[+] Enigma protector 1.02               - (Hard)
+[+] Enigma protector 1.14               - (Hard)
+[*] Улучшено определение yoda's Protector
+[*] Улучшено определение (Win)Upack
+
+-+- DiE 0.62 [Дата: 31.12.2006 Время: 11:40]
+
+[+] Armadillo 3.70a                     - (Hard/Heuristic)
+[+] Armadillo 4.00.0053                 - (Hard/Heuristic) 
+[+] Armadillo 4.40                      - (Hard/Heuristic)
+[+] Armadillo 4.42                      - (Hard/Heuristic) 
+[+] Armadillo 4.44                      - (Hard/Heuristic)
+[+] Armadillo 4.54 b1                   - (Hard/Heuristic)
+[+] ASProtect 2.xx (may be 2.11) Registered   - (Hard)
+[+] ASProtect 2.2 SKE [build 04.25] | Debug   - (Hard)
+[+] ASProtect 2.2 SKE [build 04.25] | Release - (Hard)
+
+-+- DiE 0.60 [Дата: 27.12.2006 Время: 18:37]
+
+[+] ASProtect 2.11 SKE [build 03.13]    - (Hard)
+[+] ASProtect 2.2 SKE [build 04.25]     - (Hard)
+[+] ASProtect 2.2 SKE [build 03.05]     - (Hard)
+[+] ASProtect 2.1                       - (Hard)
+[+] ASProtect 2.3                       - (Hard/Heuristic)
+[+] UPX 1.x - 2.x                       - (Hard)
+[+] MoleBox Pro 2.6.1.x                 - (Hard/Heuristic)
+[+] Petite 2.x                          - (Heuristic)
+[+] Petite 2.2                          - (Heuristic)
+[+] PELock 1.06                         - (Hard)
+[+] PESpin 1.1                          - (Hard)
+[+] NsPack 3.4                          - (Hard)
+[+] AHTeam EP Protector 0.3             - (Hard)
+[+] Petite 2.3                          - (Hard)
+[+] Petite 2.2                          - (Hard)
+[+] SDProtector 1.16                    - (Hard/Heuristic)
+[+] SimplePack 1.2                      - (Hard/Heuristic)
+[+] Private exe Protector 1.x           - (Heuristic)
+[+] PUNiSHER 1.5 DEMO                   - (Hard/Heuristic)
+[+] tElock 0.98                         - (Hard/Heuristic)
+[+] tElock 0.99                         - (Hard/Heuristic)
+[+] yoda's Protector 1.03.3             - (Hard/Heuristic)
+[+] PE-Armor 0.7x                       - (Heuristic)
+[+] Alex Protector 1.0 beta 2           - (Hard/Heuristic)
+[+] AHTeam UPX Mutanter 0.2             - (Hard)
+[+] SVK-Protector 1.4x                  - (Hard/Heuristic)
+[+] MoleBox Pro 2.5.23                  - (Hard/Heuristic)
+[+] MoleBox Pro 2.6.1                   - (Hard/Heuristic)
+[+] Armadillo 4.10                      - (Hard/Heuristic)
+[+] Armadillo 3.75c                     - (Hard/Heuristic)
+[+] Simple Pack 1.11                    - (Hard/Heuristic)
+[+] NsPack 3.6                          - (Hard)
+[*] Улучшено определение (Win)Upack
+[*] Улучшено определение ACProtect 2.x
+[!] Исправлено определение Obsidium
+[!] Исправлено определение NsPack
+[!] Исправлено определение PE-Armor
+
+-+- DiE 0.59 [Дата: 30.08.2006 Время: 14:09]
+
+[+] yoda's Protector 1.03.2             - (Hard/Heuristic)
+[+] MEW 11 SE 1.x                       - (Hard)
+[+] MEW 11 SE 1.2                       - (Heuristic)
+[+] PECompact 2.x                       - (Heuristic)
+[+] PECompact 2.3x - 2.4x               - (Hard)
+[+] PECompact 2.5x                      - (Hard)
+[+] PECompact 2.6x                      - (Hard)
+[+] PECompact 2.7x                      - (Hard)
+[+] ACProtect 2.x                       - (Hard/Heuristic)
+[+] ACProtect 1.4x                      - (Hard/Heuristic)
+[+] ACProtect 1.3x                      - (Hard/Heuristic)
+[+] NsPack 2.3                          - (Hard)
+[+] NsPack 3.0                          - (Hard)
+[+] NsPack 3.1                          - (Hard)
+[+] NsPack 3.7                          - (Hard)
+[+] Software Compress 1.2               - (Hard)
+[+] ASPack 2.11                         - (Heuristic)
+[*] Улучшено определение (Win)Upack
+[*] Улучшено определение UPX (Unopix)
+[*] Улучшено определение Armadillo
+[*] Улучшено определение VC++
+[*] Улучшено определение Armadillo
+[!] Исправлен детект MASM32 / TASM32
+ 
+История: (+ Добавлено; * Изменено; - Удалено; ! Исправлено)

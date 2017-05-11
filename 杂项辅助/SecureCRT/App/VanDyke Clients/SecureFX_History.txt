@@ -1,0 +1,150 @@
+
+              SecureFX(R) 7.1 (Official) -- May 2, 2013
+
+            Copyright (C) 1995-2013 VanDyke Software, Inc.
+                       All rights reserved.
+
+
+This file contains a SecureFX product history.  It includes lists of
+new features, changes, and bug fixes sorted by release.  For a product
+description, installation notes, registration information, and contact
+information, please refer to Readme.txt (downloaded with this 
+installation).
+
+
+Changes in SecureFX 7.1 (Official) -- May 2, 2013
+-------------------------------------------------
+
+Bug fixes:
+
+  - If the global option "Display filenames using Explorer attributes"
+    was set and the ESC key was pressed while a file on the local system
+    was being renamed, SecureFX crashed.
+  - Mac: On 10.7 (Lion), if the "FileTypes.ini" file needed to be
+    created (e.g., when SecureFX ran for the first time after a fresh
+    install), SecureFX crashed.
+  - Mac/Linux: If the toolbar was displayed, when SecureFX was closed
+    and restarted, the application window was shorter that the previous
+    time SecureFX ran.
+
+
+Changes in SecureFX 7.1 (Beta 5) -- April 25, 2013
+--------------------------------------------------
+
+Changes:
+
+  - Mac: The permissions on the installer have been modified so that
+    users other than the one who installed the application can run it.
+
+Bug fixes:
+
+  - Mac: If an application had been installed and then uncleanly
+    uninstalled, SecureCRT crashed on startup.
+  - Mac/Linux: If the SecureFX window was repositioned, when it
+    restarted, it was not in the correct position.
+  - Mac/Linux: The CTRL+F4 accelerator did not close the active tab.
+  - Linux: If the Connect dialog was displayed at startup and a session
+    was connected, the tab bar did not correctly reflect which tabbed
+    session was active.
+
+
+Changes in SecureFX 7.1 (Beta 4) -- April 11, 2013
+--------------------------------------------------
+
+Changes:
+
+  - Mac: Improved the look of the toolbar icons on the Retina display.
+
+Bug fixes:
+
+  - SecureFX could crash if a transfer was in progress when the
+    session's connection was lost (e.g., the remote system went down).
+  - The "Upload" menu item in the right-click menu was incorrectly
+    disabled if an upload was in progress.
+  - Linux: There was a case mismatch between some files referenced by
+    the tarball and the actual file names.
+
+
+Changes in SecureFX 7.1 (Beta 3) -- March 28, 2013
+--------------------------------------------------
+
+No changes.
+
+
+Changes in SecureFX 7.1 (Beta 2) -- March 14, 2013
+--------------------------------------------------
+
+Changes:
+
+  - Mac: Added support for the keyboard shortcut COMMAND+O to open the
+    highlighted file or folder.
+  - Mac: The Local window and Local Synchronize window get updated
+    during download operations.
+
+Bug fixes:
+
+  - Dependent session firewalls only worked when SecureFX was integrated
+    with SecureCRT.
+  - The authentication prompt was displayed every time a host
+    disconnected and reconnected, which resulted in multiple
+    authentication prompts being displayed when authentication timed
+    out.
+  - When SecureFX was integrated with SecureCRT, if a dependent
+    session firewall was specified and then the session protocol
+    was changed, the firewall field did not get updated on the
+    protocol page.
+  - Mac/Linux: The Connect and Synchronize toolbar buttons had the same
+    icon.
+  - Linux: Loading an incompatible plugin could cause SecureFX to
+    crash.
+
+
+Changes in SecureFX 7.1 (Beta 1) -- February 26, 2013
+-----------------------------------------------------
+
+New features:
+
+  - SecureFX is now available for Mac OS X and Ubuntu and Red Hat
+    Enterprise Linux.  The Mac and Linux version provides functionality
+    comparable to the Windows version, including multiple protocols such
+    as SFTP, SCP, FTP over SSL, and FTP, as well as advanced features
+    like site synchronization and the ability to recover interrupted
+    transfers easily.  Integration with SecureCRT is also supported.
+  - Added support for dependent sessions so that a connection can
+    be made to a jump host or SSH gateway before the session is
+    connected.
+  - SSH2 on Windows: Added support for SHA1 in RSA signatures, which
+    allows X.509 certificates to be used in FIPS mode and other
+    settings where MD5 cannot be used.
+
+Changes:
+
+  - The limit on parallel transfers has been adjusted so that it's
+    possible to have more than eight.
+
+Bug fixes:
+
+  - If a time change occurred (e.g., daylight savings time) while a
+    synchronize operation was active, the file status information was
+    incorrect.
+  - On a remote system that hides file extensions, if a file was renamed,
+    the file extension was removed.
+  - The log file did not report the correct directory when an open
+    directory failed.
+  - UTF-8 encoded characters were not displayed properly in the
+    SecureFX log.
+  - SecureFX displayed garbage characters for the session name in the
+    log when the recently used session list was used to connect to the
+    session. 
+  - In the "Connect" dialog, if a new folder was given the same name as
+    an existing folder except for different capitalization, after
+    exiting and restarting SecureFX, both folders were gone.
+  - It was possible to add a blank file type.
+  - SCP: If a directory had more than nine links, it was not displayed in
+    the file list.
+  - Windows: SecureFX did not honor the "Display filenames using Explorer
+    attributes" global option.
+  - Windows: The application icon was not removed from the Program
+    group during an uninstall.
+
+

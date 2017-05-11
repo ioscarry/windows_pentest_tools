@@ -1,0 +1,63 @@
+------------------------------------------------------------------------------
+Hex Workshop v5.0 Bug Report Form
+http://www.hexworkshop.com/support
+mailto:support@bpsoft.com
+
+Online version: http://www.hexworkshop.com/support/bugreports.html
+------------------------------------------------------------------------------
+
+
+Name:    
+
+Company:
+
+Serial Number:
+
+Phone:
+
+E-Mail:
+
+------------------------------------------------------------------------------
+What Operating System are you using?
+
+
+------------------------------------------------------------------------------
+Please enter a brief one-line description of the problem:
+
+
+------------------------------------------------------------------------------
+If the problem is reproducible, please list the steps required to recreate it.
+(example: "1. Open a new file, 2. Insert 10 bytes, ...")
+
+
+
+
+
+
+------------------------------------------------------------------------------
+If the problem is not reproducible, please describe what you were doing when 
+the problem occured.  Please be as specific as possible.
+
+
+
+
+
+------------------------------------------------------------------------------
+If an error message appeared, what was the exact text displayed?
+
+
+
+
+
+------------------------------------------------------------------------------
+Additional Information:
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------

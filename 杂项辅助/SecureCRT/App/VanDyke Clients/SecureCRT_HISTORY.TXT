@@ -1,0 +1,221 @@
+
+              SecureCRT(R) 7.1 (Official) -- May 2, 2013
+
+            Copyright (C) 1995-2013 VanDyke Software, Inc.
+                        All rights reserved.
+
+
+This file contains a SecureCRT product history.  It includes lists 
+of new features, changes, and bug fixes sorted by release.  For a 
+product description, installation notes, registration information,
+and contact information, please refer to Readme.txt (downloaded 
+with this installation).
+
+
+Changes in SecureCRT 7.1 (Official) -- May 2, 2013
+--------------------------------------------------
+
+Bug fixes:
+
+  - If a connected session was cloned and the terminal protocol of the
+    cloned session was changed and then the original session was cloned
+    again, SecureCRT crashed.
+
+
+Changes in SecureCRT 7.1 (Beta 5) -- April 25, 2013
+---------------------------------------------------
+
+Changes:
+
+  - Mac: The permissions on the installer have been modified so that
+    users other than the one who installed the application can run it.
+  - Mac: Improved the look of the button bar on the Retina display.
+
+Bug fixes:
+
+  - SSH2: If an SFTP connection failed due to an "open channel" error,
+    the SFTP tab incorrectly showed the connection status as connected.
+  - Windows: If a tabbed session was renamed so that it contained an
+    ampersand, two ampersands were displayed in the tab, and the session
+    name in the Activator did not contain any ampersands.
+  - Mac: If an application had been installed and then uncleanly
+    uninstalled, SecureCRT crashed on startup.
+  - Mac/Linux: If the session option "Synchronize view to size" was set
+    and the SecureCRT window was maximized and the font was small enough
+    so that more than the maximum number of columns could fit in the
+    terminal window, SecureCRT crashed.
+
+
+Changes in SecureCRT 7.1 (Beta 4) -- April 11, 2013
+---------------------------------------------------
+
+Changes:
+
+  - Added support for the Cursor Horizontal Absolute (CHA) escape code
+    to the VT100 and ANSI emulations.
+  - Mac: Improved the look of the toolbar icons on the Retina display.
+
+Bug fixes:
+
+  - SecureCRT could crash if CTRL+TAB was used to cycle through the
+    tabbed sessions and then the sessions were closed using CTRL+F4
+    without ever releasing the CTRL key. 
+  - If the global option "CTRL+TAB switches to most recently used tabbed
+    or tiled session" was set, the application window title did not get
+    updated when a session tab was closed and a different session become
+    the active tab.
+  - Windows: SecureCRT crashed after "+++" was typed into a TAPI session.
+
+
+Changes in SecureCRT 7.1 (Beta 3) -- March 28, 2013
+---------------------------------------------------
+
+Bug fixes:
+ 
+  - When a dependent firewall session's option "Display logon prompts in
+    terminal window" was set, the parent session's username was used
+    instead when the dependent firewall session connected. 
+  - When a dependent firewall session connected, the dependent session's
+    specified authentication method was not used.
+  - Windows: If a session was logging to a file and then logging was
+    stopped, the log file's parent folder could not be renamed or
+    deleted.
+  - Windows: If the administrative option to disallow saving passwords
+    was set and a password was specified on the command line, it was not
+    used.
+  - Mac:  The connection status icon and session name overlapped in the
+    session tab when there was not enough room to display both.
+
+
+Changes in SecureCRT 7.1 (Beta 2) -- March 14, 2013
+---------------------------------------------------
+
+Changes:
+
+  - When the "Scroll to bottom on output" session option is off, the
+    session never scrolls to the bottom.  Previously, if less than a
+    screen was scrolled back, the session always scrolled to the
+    bottom on new output. 
+  - Added support for extended packets in Kermit, which allows ASCII
+    files to be transferred and improves transfer performance.
+  - Line drawing for Korean language fonts was improved.
+  - A session using VT220 emulation ignores DEL characters received
+    from the remote system.
+  - If the global option "CTRL+TAB switches to most recently used tab"
+    is set, when a tabbed session is closed, focus goes to the
+    previously active tab instead of the most recently opened tab.
+
+Bug fixes:
+
+  - Scripts that attempted to connect an ad hoc session using a
+    protocol flag such as "/SSH2" reported the following error: The
+    default session is not valid with the "/S" command-line flag.
+  - If the font of a connected session was changed, the session's rows
+    and columns were not adjusted.
+  - When the SecureCRT window regained focus, an extra mouse click was
+    required before being able to select text.
+  - The authentication prompt was displayed every time a host
+    disconnected and reconnected, which resulted in multiple
+    authentication prompts being displayed when authentication timed
+    out.
+  - When SecureCRT was integrated with SecureFX, if a dependent
+    session firewall was specified and then the session protocol
+    was changed, the firewall field did not get updated on the
+    protocol page.
+  - Mac: After several days of constant use, especially with a lot of
+    switching into and out of full screen mode, the toolbar could
+    disappear.
+  - Mac: The Connect bar disappeared after going into and out of full
+    screen mode.
+  - Mac: The minimum tab width global option was not honored.
+  - Linux: Loading an incompatible plugin could cause SecureCRT to
+    crash.
+
+
+Changes in SecureCRT 7.1 (Beta 1) -- February 26, 2013
+------------------------------------------------------
+
+New features:
+
+  - On Mac and Linux, added the ability to tile sessions within the
+    SecureCRT application window.  Sessions can be tiled or cascaded.
+    Scripts can use the "Tab" object to work with tiled sessions.
+  - Added support for dependent sessions so that a connection can
+    be made to a jump host or SSH gateway before the session is
+    connected.
+  - Added support for the Kermit file transfer protocol.  Binary and
+    ASCII transfers are supported. 
+  - SSH2 on Windows: Added support for SHA1 in RSA signatures, which
+    allows X.509 certificates to be used in FIPS mode and other
+    settings where MD5 cannot be used.
+  - A button action can be sent to all connected tabbed or tiled
+    sessions by pressing SHIFT+<click> on the button.
+  - Added a character send delay option to wait for a text prompt.
+  - Added a new logging substitution variable "%P", which inserts the
+    session's port.
+  - Added the ability to copy ANSI text to the clipboard, which allows
+    attributes such as color and font to be preserved on the clipboard.
+  - Added support for sending Xterminal escape sequences for
+    CTRL+<arrow> keys.
+  - Added the ability to specify ANSI colors for individual sessions
+    in addition to the global option.
+  - Windows: Added support for the Wyse label line.
+  - Linux: Added support for printing.
+
+Changes:
+
+  - Improved scrolling performance when the session options "Jump
+    scroll" and "Minimize drawing" are set.
+  - Changed the protocol NO-OP to send decimal code 241 instead of 0.
+  - When the escape sequence "CSI ?3l" is received, the data is added
+    to the scrollback buffer before the screen is cleared.
+  - Mac: The default font is now 11-point Menlo.  This change only
+    affects new installations.
+
+Bug fixes:
+
+  - SecureCRT could crash when attempting to clone a session connected
+    to a device that does not support multiple connections if prompts
+    for both sessions were displayed at the same time.
+  - If a tab was manually closed and then was closed by a script,
+    SecureCRT crashed.
+  - SecureCRT could crash if it was tunneling through a SOCKS proxy on
+    a laptop and the laptop was closed.
+  - The password prompt was displayed every time a host disconnected,
+    due to the session timing out, and reconnected automatically.
+  - The cursor went below the session window if the chat window was
+    displayed and the number of session rows was larger than the
+    session window height.
+  - If a machine had two monitors and the main SecureCRT window was
+    dragged to the second monitor and maximized, when a session with
+    the inital position located on the first monitor was opened and
+    switched to fullscreen mode, the main window got moved to the
+    first monitor.
+  - In the "Connect" dialog, if a new folder was given the same name as
+    an existing folder except for different capitalization, after
+    exiting and restarting SecureCRT, both folders were gone.
+  - If a key was mapped to VT_KEYPAD_ENTER, the key did not work when
+    the terminal was in newline substitution mode.
+  - SSH2: The global option "Cache session password" was not honored
+    for keyboard interactive authentication.
+  - SSH2: If a session was configured to use password and X.509
+    public-key authentication, if the key was signed, but failed,
+    the same key was sent again instead of sending the next key.
+  - Windows: If a terminal session channel could not be opened because
+    of a resource shortage, an error was displayed and the terminal
+    area was not displayed correctly.
+  - Windows: The application icon was not removed from the Program
+    group during an uninstall.
+  - Windows: If "Connect" was selected from the Activator and "Quick
+    Connect" was selected from the "Connect" dialog, the connection was
+    not made.
+  - Mac, Linux: Copying text from an RDP session caused SecureCRT to
+    hang.
+  - Mac: SHIFT and CONTROL keys did not work with the Chinese input
+    methods sougou and QIM.
+  - Mac: When Romaji was the selected language Input Source, the
+    CONTROL key behaved like the COMMAND key.
+  - Mac: When "Make Alias" was used to create a desktop shortcut, if the
+    shortcut name contained a ".", the shortcut did not work.
+  - Mac: When a Telnet connection failed, a "Broken pipe" error was
+    displayed.

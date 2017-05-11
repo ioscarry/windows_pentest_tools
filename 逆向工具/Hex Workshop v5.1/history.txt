@@ -1,0 +1,605 @@
+------------------------------------------------------------------------
+Hex Workshop, the Professional Hex Editor
+Copyright 1995-2008 BreakPoint Software, Inc.
+http://www.bpsoft.com
+http://www.hexworkshop.com
+------------------------------------------------------------------------
+
+Hex Workshop v5.1 - June 2008
+---------------------------------
+  ENHANCEMENTS
+  - The Hex Workshop user interface includes updated icons and toolbars
+    along with a new offset column header to highlight the current
+    caret and offset positions.
+  - The Structure Viewer panel now simultaneously displays and allows
+    the editing of interpreted values in both decimal and hexadecimal. 
+    The bookmark, compare, checksum, and find panels were also updated
+    to include both decimal and hexadecimal columns where possible.
+  - The Structure Viewer file format now supports additional data 
+    accessors and more support for conditional data formats.
+    - sizeof() returns the size of a variable in bytes
+    - ubyteAt(), ushortAt(), and ulongAt() returns the 8, 16, or 32
+      bit value at the specified file offset or variable value.
+    - switch() allows for conditional structures based on the contents
+      of a variable.
+  - F7 and Shift+F7 keyboard accelerators jump to the next/previous 
+    Bookmark.
+  - Users can now copy and paste binary data between multiple instances
+    of Hex Workshop.
+  - Users can now specify whether documents are titled horizontally or
+    vertically during file comparisons.
+  - A 64 bit shell extension was added to enable the Right-Click "Hex
+    Edit using Hex Workshop" option under 64 bit operating systems.
+  - The Hex Workshop license agreement was relaxed to allow either a 
+    single user on multiple PCs or multiple users on a single PC.  
+    Previously, the Hex Workshop license restricted use to a single
+    user on a single PC.
+  - Hex Workshop now defaults to displaying hex data grouped by 8 bit
+    bytes (instead of by 16 bit word) and enabled automatical column
+    sizing.
+
+  BUG FIXES
+  - Users can now re-open structure definitions.  Previously, Hex
+    Workshop failed to re-open a structure definition if it was
+    previously opened.
+  - Hex Workshop no longer attempts to auto-load structure 
+    definitions with parsing errors
+  - Restore Sectors failed to write sectors to the specified
+    disk/drive and instead re-read the sectors.
+  - Structures now retain thier expanded/collapsed state when
+    users reposition floating structures or collapse and expand
+    a parent structure/element.
+  - Hex Workshop v5.1 falls back to the 4.x sector editing logic
+    if unabled to open disks/drives using logic adapted for
+    Vista UAC privilege escalation.
+  
+Hex Workshop v5.02 - January 2008
+---------------------------------
+  ENHANCEMENTS
+  - Auto-loading bookmarks: Users can now set file extensions for
+    bookmark collections.  Hex Workshop will automatically load
+    bookmarks whenever a file extension matches the association.
+  - Easier data insertion: The Data Inspector and in-place bookmark
+    and structure value editors, and find dialog now accepts data with
+    commas and non-decimal values. 
+  - Users can now select an odd and even hex background colors.
+  - The Compare Results Window now includes refresh and clear buttons.
+  - The Bookmark Results and Find Results windows now include goto and
+    select data toolbar buttons.
+  - Double clicking on the INS/OVR indicator in Hex Workshop's status
+    pane now toggles Insert/Overwrite mode
+  - Double clicking on offset, value, or size in the status pane now
+    places the value on the clipboard.
+  - The start and max sector is now displayed in either decimal or
+    hex depending on offset mode.
+  - The compare tool now uses less memory during the compare
+    operations.
+  - Structure Viewer now supports #pragma lockAt and #pragma floatAt.
+    This pragmas allow the user to specify the default offset and 
+    structure type.
+  - Added time64_t data type to Data Inspector, structure viewer, and
+    bookmarks
+
+  BUG FIXES
+  - The Character Distribution's percent column was calculated
+    incorrectly when operating on a selection.
+  - Hex Workshop crashed after opening some bookmark files.
+  - Hex Workshop crashed when manipulating data over 25M.
+  - A number of GUI refresh issues were resolved.
+  - Cancel was disable for find operations
+  - It was not possible to disable the right-click context menu when
+    running under Vista or a system with limited access to the
+    registry. 
+  - Enabled tooltips for the Checksum, Find Results, and Compare
+    result windows.
+  - Hex Workshop installer failed to remove registry keys during
+    uninstall.
+  - Unlocking Hex Workshop (from About Dialog) forced Hex Workshop
+    into an application compability mode under Vista or failed to
+    launch the registration unlocking dialog.
+
+Hex Workshop v5.0 - October 2007
+---------------------------------
+  ENHANCEMENTS
+  - Added Microsoft Vista support.  This impacted Sector editing
+    (requires admin privledge escalation), registration, help format
+    and the right-click document context menu. 
+  - The Structure Viewer was expanded to support display names,
+    verify statements (sanity checking), document types, and a blob
+    (unexpanded) native type.
+  - The Structure Viewer can now open/apply structures from multiple
+    libraries and parse enumerations with values defined in hex.
+  - A new "/FILELIST" command line argument allows users to load
+    a list of files from a text file.
+  - Added buttons to calculate and clear checksums on the checksum
+    tab of the Results Window
+  - Added buttons to close structure libraries and remove structures
+    on the Structure Viewer.
+  - Added buttons to clear and remove bookmarks on the bookmark tab
+    of the Results Window.
+  - Added menus to the Help menu for Bug Reports and Product 
+    Suggestions
+  - Installer and most components are now digitally signed.
+
+  BUG FIXES
+  - Text spacing was incorrect when using the Windows ANSI character
+    filter.
+  - "DOS Time" rendering in the Data Inspector and bookmarks failed
+    when the hour was greater then 15.
+  - Fixed possible crash when closing a files with float structures 
+    applied and expanded.
+  - File properties are now displayed properly for new documents.
+  - Many other stability-related bug fixes
+
+Hex Workshop v4.23 - February 2004
+----------------------------------
+  ENHANCEMENTS
+    - The new Find Strings operation can locate all ASCII strings within 
+      a document.  Users may specify the minimum string length and require
+      that strings end with a null character.
+    - The Structure Viewer's maximum array size was increased from
+      16K to 64K (#pragma maxarray).
+
+  BUG FIXES
+    - The "Hex Edit with Hex Workshop" icon displayed on Microsoft
+      Window's right-click context menu was not aligned correctly.
+    - Hex Workshop failed to insert data using the "Insert Fill"
+      command on some large documents.
+    - Hex Workshop crashed if a structure definition spanned past the end
+      of a document.
+    - The hex editor display could have been corrupted when inserting
+      bytes into a document.
+    - The Redo command failed to properly redo inserted data.
+    - The data inspector unnecessarily repainted while scrolling using
+      the scroll bar.
+
+Hex Workshop v4.22 - January 2004
+---------------------------------
+  BUG FIXES
+    - Drag and drop was non-functional when running under Windows 9x/ME.
+    - The Hex Workshop help facility failed to launch and/or work
+      correctly if "roboex32.dll" was not present on a user's system.
+      Hex Workshop now installs "roboex32.dll" into the Hex Workshop
+      program directory.
+    - The editor display could fail to repaint/redraw properly after a
+      scrolling through large files or resizing the window many times.
+      This problem was caused by resource leak in Hex Workshop, however,
+      only surfaced under Windows 9x/ME.
+    - Drag and drop was broken under Windows 9x/ME.
+    - Hex Workshop data operations were incorrect when processing 16 bit
+      or larger adds, substracts, multiples, divides, mod, and change
+      signed operations.  Additionally, the data operation dialogs now
+      recall the last used settings.
+    - "Hex Edit with Hex Workshop" failed to appear on the right-click
+      context menu of some file types.  An icon is now displayed in the
+      Shell's right-click context menus. 
+
+Hex Workshop v4.21 - January 2004
+---------------------------------
+  BUG FIXES
+    - Hex Workshop help failed to launch if "inetwh32.dll" was not
+      present on a user's system.  Hex Workshop now installs
+      "inetwh32.dll" into the Hex Workshop program directory. 
+    - The file open dialog failed to open on Windows 9x and NT 4.0.
+      This problem was introduced as a side effect of upgrading from 
+      MSVC 6.0 to Microsoft .NET 2003.
+    - Hex Workshop failed to run on Windows 95 with an error message
+      claiming that it needed "oleacc.dll".  This problem was introduced
+      as a side effect of upgrading from MSVC 6.0 to Microsoft .NET 
+      2003.
+ 
+      
+Hex Workshop v4.20 - January 2004
+---------------------------------
+  NEW FEATURES
+    - The Structure Viewer now supports 8, 16, 32 and 64 bit bitfields.
+      A bitfield as defined by the C language allows users to modify and
+      manipulate data without manually counting, shifting, or masking
+      bits.
+    - Users can now specify the data type length when exporting data as
+      C source or Java source.  8, 16, 32, and 64 bit data types and
+      byte swapping are also supported.
+    - Hex Workshop can now be used to export data in the Base64 and
+      UUEncoding formats.  Copy-As support is also available.
+    - Users can now modify the starting offset and view file offsets in
+      terms of bytes (default), number of words (bytes/2), or dwords
+      (bytes/4).  The offset display is controlled by right clicking on
+      the address column of the hex display.
+    - Bookmarks are now easier to use and more useful.  The result of
+      selecting or double-clicking a bookmark is different:
+      - Selecting bookmark: Scrolls the bookmark into view without
+        changing the cursor position.
+      - Double-clicking bookmark's address: Moves the cursor position to
+        the bookmark's address.
+      - Double-clicking length: Selects the bookmark data within the
+        editor.
+      - Double-clicking bookmark's description: Allows you to edit the
+        description in place.
+      - Double-clicking bookmark's value: If a data type was supplied,
+        allows you to edit the data in place.
+    - The Results Window has new "Output" tab to aid in development of
+      structure definitions.  Debugging information and errors are
+      displayed in the "Output" window whenever a user opens a new
+      structure definition file.
+    - The Structure Viewer's right-click popup menu now contains menu
+      entries for "Copy" and "Edit".
+    - The Export As dialog now contains a button to modify export
+      preferences.  This allows users to more easily change their export
+      preferences.
+    - F2 may now be used to begin editing the selected structure viewer
+      value.
+    - Ctrl+C now copies values to the clipboard from the Data Inspector
+      and Structure Viewer.
+
+  BUG FIXES
+    - Hex Workshop's failure to read all sectors on large disks.
+    - Motorola S-Records were not imported correctly when records 
+      overlapped or records were out of order.
+    - Typo in ANSI character map (online help).
+    - Failure of the delete key to remove the selected bookmark.
+    - Removed the left and right scroll buttons from the Data
+      Inspector's and Results Window's tab control.
+    - Defaults file extensions were not applied when changing format
+      types in the Export As dialog.
+    - Redraw problems when repositioning floating structures containing
+      array elements.
+    - "Junk entires" are no longer left after collapsing some structure
+      definitions.
+    - Structure Viewer parsing problems for "typedef enum".
+    - Structure Viewer parsing/evaluation problems for signed and
+      unsigned modifiers.
+
+Hex Workshop v4.10 - May 2003
+-----------------------------
+  NEW FEATURES
+    - The Hex Workshop Structure Viewer now supports variable length
+      arrays.  This allows users to define the length of an array based
+      one of the structure's own data members
+    - Hex Workshop now handles simple expressions embedded within an
+      array length definition.
+    - Users can now define their own data types using the "typedef"
+      feature.
+    - The Hex Workshop structure facility now supports enumerated types.
+      Enumerated types allow users to create human readable identifiers
+      for unique numeric values.  
+    - Hex Workshop Structure Libraries can now reference other structure
+      libraries by using a #include directive.  This feature offers
+      users better control and organization of their structure files. 
+    - End users can now calculate up to 12 different checksums within
+      Hex Workshop.  The latest checksum algorithm allows users to
+      define a 16 bit or 32 bit CRC by supplying the polynomial, initial
+      value, reflective properties, and final XOR value.
+    - When clicking the right mouse button over the offset portion of
+      the hex editing display, a new context menu is displayed with
+      various offset related options: 
+      - Switch between hexadecimal and decimal addresses.
+      - Specify a starting offset value.
+      - Modify how Hex Workshop calculates offset addresses in the hex
+        editing display.
+      - Modify the length of digits displayed in document offsets.
+      - Execute the Hex Workshop Goto command.
+    - When importing Intel Hex Code or Motorola S-Records, users can now
+      specify the fill byte used for unspecified data regions.
+    - When working with big Endian binary files, users can now swap the
+      order of bytes display in the editor.
+
+  BUG FIXES
+    - Prior to v4.10, imported Intel Hex Code documents could be
+      corrupted when records overlapped.  This problem has been
+      addressed. 
+    - Prior to v4.10, if users clicked on a read-only portion of the
+      structure viewer display instead of an editable element, editing
+      was not initiated upon pressing F2.  Now, pressing F2 will invoke
+      the in-placing edit feature for bookmarks, structures, and the
+      data inspector whenever an element has active focus.
+    - When an element in the structure viewer has active focus, pressing
+      the left and right arrow keys will now collapse or expand the
+      structure. 
+
+Hex Workshop v4.00 - January 2003
+--------------------------------
+  NEW FEATURES
+    - Structure Viewer allows you to view and edit data in a more
+      convenient and intuitive way
+    - "Smart" Bookmarks helps you pick apart and label a data file for
+      one time use or to share.
+    - Color Mapping helps you visually find patterns and de-emphasize
+      uninteresting data.
+    - Custom Character Filters allow you to define your own text
+      character mapping.
+    - Set Floor and Set Ceiling operations allow you to set the min/max
+      value for a range.
+    - Uppercase, Lowercase and Swapcase operations allow you to
+      manipulate ASCII text.
+    - Block shift left and Block shift right operations help shift bit
+      with carry.
+    - Redo command allow you to redo your last undone undo.
+    - Copy Sectors Feature allows you to copy sectors between different
+      drives and drive partitions.
+    - Automatic Version Check helps users to stay on top of latest
+      release of Hex Workshop.
+    - Enhanced Export Capabilities by allow users to set the maximum
+      array size for C or Java export.
+    - Enhanced Resynchronizing Compare by adding color to the Hex
+      Workshop display area.
+    - Enhanced Find All in File adds color to Hex Workshop by display
+      for all found occurrences.
+
+  BUG FIXES
+    - Inaccurate reporting physical of disk sizes.
+    - Changed GUIID of shell extension to avoid conflict with IE.
+    - Fixed column resizing inconsistencies with the Data Inspector and
+      Results Window controls.
+    - Corrected inaccurate size calculations in the saving and restoring
+      sector dialogs.
+
+Hex Workshop v3.11 - July 2000
+------------------------------
+  NEW FEATURES
+    - Hex Workshop can now open files up to 4 gigabytes in length.
+    - Added "Copy Address", "Copy All" and "Clear" to the Find Result's
+      right-click context menu.
+
+  BUG FIXES
+    - Exporting blocks of data as Motorola S-Records or Intel Hex Code
+      would occasionally fail.
+    - Hex Workshop was unable to Save data after importing from Motorola
+      S-Records or Intel Hex Code.
+
+Hex Workshop v3.10 - May 2000
+-----------------------------
+  NEW FEATURES
+    - The Data Inspector now has a scrollbar and a number of new
+      inspectors:
+        DATE
+        DOS Date
+        DOS Time
+        FILETIME
+        time_t
+    - Paste Special "Interpret as hexadecimal string" option that allows
+      users to paste in hex strings from outside sources.
+    - Export formatting options can be set in preferences.
+    - Import/Export abilities for 16 and 32 Bit Intel Hex Code formats.
+    - Import/Export abilties for S19, S28 and S37 Motorola S-Record
+      formats.
+    - Export and Copy As Java Source abilties added.
+    - Users can now specify the bytes/row for printing in page setup.
+    - Save/Restore range of sectors.
+    - "Find All Instances" find option.
+    - Character Filters have been updated to reverse map ascii data when
+      entered.
+    - Ctrl+F3 and Ctrl+Shift+F3 accelerators to find selected hex or
+      ascii data.
+    - Shift+F5 to goto/jump backwards.
+    - User Tools now support various context sensitive variables:
+      $(FilePath), $(FileDrive), $(FileDir), $(FileName), $(FileExt),
+      $(DosFilePath), $(CurrOffsetDec), $(CurrOffsetHex),
+      $(CurrSelectionDec), and $(CurrSelectionHex).  
+    - Compare Results and Checksum Results windows now have a refresh
+      button to recompare or recalculate checksums.
+    - Checksums can be view in 1s and 2s complement.
+    - Compare results can be filtered by insertions, deletions, matches,
+      or replacements.
+    - Users can perform a simple and quick non-resynchronizing compare.
+    
+  BUG FIXES
+    - Unsigned Quads were not display correctly in checksum results and
+      data inspector
+    - Printing/print was crashing where the file path was longer than
+      ~80 characters
+    - Recomparing a file would clear the compare title
+    - Backspace was not deleting selected data in overwrite mode
+    - Gradient title bar looked horrible in Windows 2000.
+    - Fixed "4 Bit Float" and "8 Bit Double" typos in Find Dialog
+    - Fixed crash when finding/replacing on large files.
+    - Paste Special now retains last selected format/options.
+    - Open Drives now retains selection of last opened drive
+    - Fixed various print/print preview problems
+    - Font now displays properly on "Display" Tab of Preferences
+    - Change Sign failed to operate properly in most situations
+
+Hex Workshop v3.02 - Dec 1999
+-----------------------------
+  NEW FEATURES
+    - 32 bit and 64 bit Checksums
+    - Added command line options:
+        /READONLY               Open resource in read-only mode
+        /GOTO:offset            Jump to a specific offset
+        /SELECT:count           Select count bytes from offset
+
+    - Physical Disk Support for Windows 98
+
+  BUG FIXES
+    - Customers can now re-register their product by hitting Ctrl+Alt+R
+      from the About Box
+    - Hex Workshop did not run properly without administration
+      privileges on Windows NT
+    - Shell right click context menu failed in some cases (related to
+      spaces in install directory)
+    - Hex Workshop failed to report when files where not found (and
+      created them)
+    - Added "You must restart Hex Workshop to apply changes on this
+      page" to the path preferences page
+    - Fixed a bug where Hex Workshop mistakenly thought a file was zero
+      bytes after failing a write operation
+    - Fixed "invalid temporary file" error caused after failed write
+      operation
+    - Find Criteria drop down list erroneously cleared search string
+      when selection changed
+    - Fixed search bug where search strings would not be found
+      consistently
+    - Physical Drive sizes were reported incorrectly for drives over 2.1
+      gigs in Windows 98
+    - Toolbar states were not display correctly when starting Hex
+      Workshop with a command line parameter.
+
+Hex Workshop v3.00 - Nov 1999
+-----------------------------
+  NEW FEATURES
+    - Large File Support (up to 2 gigabytes)
+    - FAT32 Sector Editing
+    - Resynchronizing Binary Compare
+    - Greater Interface Customization
+    - Added Data Operations: Byte Flip, NOT, Shift Left, Rotate Left,
+      Shift Right, Rotate Right, XOR, OR, AND, Change Sign, Plus,
+      Subtract, Multiply, Divide, and Modulo 
+    - Enhanced Find
+    - 64 Bit Integer (Quad) Support
+    - Character Distributions
+    - Added Insert File, Replace Selection with File, and Save Selection
+      As File
+    - Added Path Preferences
+    - Added Unicode display filter
+    - Added MD2, MD4, MD5, and SHA1 Checksums
+
+
+Hex Workshop v2.54 - Sept 1997
+------------------------------
+  BUG FIXES
+    - Fixed "Display alter bytes" crash when replacing data
+
+Hex Workshop v2.53 - June 1997
+------------------------------
+  BUG FIXES
+    - Fixed printing problems associated with variable column widths.
+    - Fixed crash when replacing data with shorter data.
+    - Fixed Undo crash (inserting at the end of a document).
+
+Hex Workshop v2.52 - Feb 1997
+-----------------------------
+  BUG FIXES
+    - Compare Again was not functioning properly.
+    - Fixed problems in NT sector editing (search speed and sector
+      count).
+    - Fixed crash when deleting bytes at end of file.
+
+Hex Workshop v2.50 - Jan 1997
+-----------------------------
+  NEW FEATURES
+    - Installer is now a self extracting archive.
+    - Added Data Watch to display and edit decimal values.
+    - New Preferences
+      - Added user defined bytes/row and Fit to Window.
+      - Added new character filters (DOS and Macintosh).
+    - Redesigned Preferences tabs.
+    - Redesigned Document Properties (offset, insert/overwrite, etc.).
+    - Added Shift-PgUp and Shift-PgDn Accelerators.
+    - Find Improvements:
+      - ASCII search by Unicode.
+      - Ability to pad replacement ASCII strings with nulls.
+      - Ability to search by decimal value (byte, long, float, etc.).
+    - Added Copy As and Export capabilities (Text, HTML, RTF, and C
+      Source).
+        
+  BUG FIXES
+    - Inserting bytes would occasionally cause crashes
+    - Miscellaneous display problems
+    - Did not handle read only files properly
+    - Did not save checksum dialog states
+    - Canceling a "Save As" caused "highlight altered bytes" option to
+      be reset
+
+
+Hex Workshop v 2.20 - July 1996
+-------------------------------
+  NEW FEATURES
+    - Added Installer.
+      - Creates Hex Workshop Program Group.
+      - Installs the Hex Workshop File Manager Extension.
+      - Installs the Hex Workshop Windows 95 Shell Extension.
+      - Adds Hex Workshop to Microsoft Visual C++ "Tools" Menu.
+      - Added Uninstall capability to 32 bit version to remove product.
+    - New Preferences
+      - Default path to open files from.
+      - Can set to open documents maximized.
+      - Can choose to highlight altered bytes with a different color.
+      - Added new character filters (EBCDIC/ASCII/none).
+    - Added new keycuts for selecting bytes.
+    - Added Command Line options.
+
+  BUG FIXES
+    - Right Aligned Footer not working properly.
+    - 16-bit Checksum sign extension bug.
+    - Able to handle unlimited size files although performance on very
+      large files is poor.
+    - Preferences were not being saved in some cases.
+    - Base Converter always pasted into one window.
+
+Hex Workshop v2.10 - Feb 1996
+-----------------------------
+  NEW FEATURES
+    - Page Setup
+      - Margins, Headers, Footers, Printer Font.
+    - Enhanced Disk Editing
+      - Support more drive types.
+      - Edit in drive or raw disk mode.
+    - Context Menu Extension [Win 95]
+    - Drag and Drop
+      - from shell/explorer [Win 95].
+      - from File Manager.
+    - File Manager Extension
+      - Allows user to add a "hex edit" menu to file manager.
+    - Checksum
+      - Added 16 bit checksum.
+      - Added one's and two's complement modifiers.
+    - Enable paste into Find/Replace, Goto dialogs.
+    - Added Tool Help Bubbles.
+    - Added Dockable Toolbars (32 bit version).
+    - Combined Hex Calculator and Bit Calculator into one.
+
+  BUG FIXES
+    - Printing continued for infinite number of pages .
+    - Editing disks with over 255 tracks didn't work.
+    - Sector find wasn't working properly.
+    - Compare failed when file comparing two files with the same file
+      name.
+    - Never performed input range checking for the compare and sector
+      dialogs.
+    - Dialog background colors where not being set correctly in Win 95.
+    - Goto dialog was not always setting the initial focus properly.
+
+Hex Workshop v2.01 - Dec 1995
+-----------------------------
+  BUG FIXES
+    - Signed short was not working properly in the 32-bit version.
+    - Launching the calculators failed because of new naming convention.
+
+Hex Workshop v2.00 - Oct 1995
+-----------------------------
+  NEW FEATURES
+    - 32 bit version for Windows 95 and NT.
+    - Sector Editor
+      - Supports BIOS floppy and hard disks.
+    - Checksum calculations
+      - Checksum, CRC-16, CRC-16/CCITT, CRC-32 are calculated selection.
+    - Right-Click menus
+      - Cut, Copy, Paste, Goto, Checksum, Insert for Files
+      - Copy, Next Sector, Previous Sector, Goto, Checksum for Disks.
+    - Paste Special Command
+      - Allows you to paste any format on the clipboard into Hex
+        Workshop.
+    - New File Command
+      - Allows you to open a blank file (useful with paste special).
+    - Copy Special Command
+      - Places the selected text on the Windows clipboard in a text
+        format.
+    - Select Block
+      - Allows you to select large amounts of data easily (by block size
+        or ending offset).
+
+  BUG FIXES
+    - Improved display
+    - Optimized the selection drawing routines.
+    - Fixed crash when trying to open a help component that didn't
+      exist. 
+    - Print/Print Preview was calculating the number of lines per page
+      incorrectly.
+    - Could not add (append) to the end of a file.
+    - Find Again failed, when changing the cursor position between
+      finds.
+    - When saving documents, was not clearing undo stack.
+    - Copy/Pasting selection over 32K causes random results.
+
+Hex Workshop v1.0 - May 1995
+----------------------------
+  ORIGINAL VERSION

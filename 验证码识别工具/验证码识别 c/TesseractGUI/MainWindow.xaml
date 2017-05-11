@@ -1,0 +1,83 @@
+﻿<Window x:Class="TesseractGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TesseractGUI" Height="460" Width="1055"
+        xmlns:local="clr-namespace:PanAndZoom" Closing="Window_Closing" Icon="/TesseractGUI;component/ocr.png" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="300"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel Grid.Row="0" Grid.Column="0">
+                <RadioButton Name="rbtn本地图片" Margin="3" Content="本地图片" IsChecked="True" VerticalAlignment="Center" GroupName="img" Checked="rbtn本地图片_Checked" />
+                <TextBox Name="txt本地图片" Margin="3" MinWidth="350" Height="25" VerticalContentAlignment="Center" />
+                <Button Name="btn浏览" Content="浏览(_W)" Margin="3" Padding="3" MinWidth="60" Click="btn浏览_Click" />
+            </WrapPanel>
+
+            <WrapPanel Grid.Row="1" Grid.Column="0">
+                <RadioButton Name="rbtn网络图片" Margin="3" Content="网络图片" IsChecked="False" VerticalAlignment="Center" GroupName="img" Checked="rbtn网络图片_Checked" />
+                <TextBox Name="txt网络图片" Margin="3" MinWidth="415" Height="25" Text="http://" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="txt网络图片_TextChanged" />
+            </WrapPanel>
+
+            <WrapPanel Grid.Row="2" Grid.Column="0">
+                <Label Name="lab长度" Content="长度：" Margin="3" />
+                <Slider Name="sl长度" MinWidth="50" Margin="3" VerticalAlignment="Center" Maximum="400" Value="{Binding ElementName=img图片, Path=Width, Mode=TwoWay}" />
+
+                <Label Name="lab宽度" Content="宽度：" Margin="3" />
+                <Slider Name="sl宽度" MinWidth="50" Margin="3" VerticalAlignment="Center" Maximum="400" Value="{Binding ElementName=img图片, Path=Height, Mode=TwoWay}" />
+
+                <Label Name="lab透明度" Content="透明度：" Margin="3" />
+                <Slider Name="sl透明度" MinWidth="50" Margin="3" VerticalAlignment="Center" Maximum="1" Value="{Binding ElementName=img图片, Path=Opacity, Mode=TwoWay}" />
+
+                <Label Name="lab拉伸方式" Content="拉伸方式：" Margin="3" />
+                <ComboBox Name="txt拉伸方式" Margin="3" MinWidth="85">
+                    <ComboBoxItem Content="Fill" />
+                    <ComboBoxItem Content="None" IsSelected="True" />
+                    <ComboBoxItem Content="Uniform" />
+                    <ComboBoxItem Content="UniformToFill" />
+                </ComboBox>
+            </WrapPanel>
+
+            <local:PanAndZoomViewer Grid.Row="3" Grid.Column="0" Height="300" Margin="3">
+                <Image Name="img图片" Stretch="{Binding ElementName=txt拉伸方式, Path=Text, Mode=TwoWay}" />
+            </local:PanAndZoomViewer>
+
+            <Label Grid.Row="4" Grid.Column="0" Name="labMsg" Content="请选择一个待解析的图片。" Foreground="Red" Margin="3" VerticalContentAlignment="Center" />
+        </Grid>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+            <Button Name="btn清空" Content="清空(_C)" Margin="3" Padding="3" MinWidth="50" Click="btn清空_Click" />
+            <Button Name="btnOCR" Content="OCR(_O)" Margin="3" Padding="3" MinWidth="50" Click="btnOCR_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <WrapPanel Grid.Row="0" Grid.Column="0">
+                <Label Name="lab输出目录" Content="输出目录：" Margin="3" VerticalContentAlignment="Center" />
+                <TextBox Name="txt输出目录" Margin="3" MinWidth="350" Height="25" VerticalContentAlignment="Center" />
+                <Button Name="btn输出浏览" Content="浏览(_Q)" Margin="3" Padding="3" MinWidth="50" Click="btn输出浏览_Click" />
+            </WrapPanel>
+
+            <TextBlock Name="txtOCRed" Margin="3" Padding="3" TextWrapping="WrapWithOverflow" />
+        </StackPanel>
+
+    </Grid>
+</Window>

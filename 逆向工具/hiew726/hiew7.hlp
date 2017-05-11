@@ -1,0 +1,885 @@
+                [HiewHelp 7.00]
+
+ * To activate:   press F1
+ * Last modified: version 7.25
+
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                     String editing                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[StringEdit]
+ Enter             - enter string
+ Escape            - cancel
+ Home              - beginning of line
+ End               - end of line
+ Left              - move by 1 character to the left
+ Right             - move by 1 character to the right
+ PgUp              - clear line
+ PgDn              - call history (if any)
+ Insert            - toggle insert mode
+ Backspace         - delete previous character
+ Del               - delete character under cursor
+ Ctrl-End          - truncate string at cursor position
+  Alt-X            - truncate string at cursor position
+ Shift-Insert      - insert string from clipboard
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                  Search string editing                      บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+[FindEdit]
+ F2       - Direct - toggle direction
+ F4       - Area   - toggle search area
+ F5       - GoLast - go to last found position
+ F6       - Even/Odd - set even/odd offset (for unicode only)
+ F7       - Asm    - call assembler
+ Ctrl-F1  - OpSize - toggle opcode size
+ Tab               - toggle hex/ascii edit (toggle case for unicode)
+  Up               - toggle hex/ascii edit (toggle case for unicode)
+  Down             - toggle hex/ascii edit (toggle case for unicode)
++[StringEdit]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        Wildcards                            บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[StrPattern]
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Meta symbols for wildcard match ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+?       - any single character
+*       - arbitrary number of any characters (0 or more)
+{ABC}   - A, B, or C
+{A-C}   - A, B, or C
+{!ABC}  - any single character except A, B, and C
+!       - anything but ... (must be the first character)
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                    Get line with wildcard                   บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[GetStringPattern]
++[StringEdit]
++[StrPattern]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                     Assembler line                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Assembler]
++[StringEdit]
++[StrPattern]
+Ctrl-Enter         - assemble line, do not do wildcard search
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        Calculator                           บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Calculator]
+64-bit integer arithmetic calculator with brackets.
+
++  Sum                  ~  Bit Not
+-  Difference           &  Bit And
+*  Product              ^  Bit Xor
+/  Quotient             |  Bit Or 
+%  Remainder
+
+!  Logical Not          <  Less than
+&& Locical And          >  Greater than
+|| Logical Or           <= Less or Equal
+                        >= Great or Equal
+<< Shift Left           == Equal
+>> Shift Right          != Not Equal     
+
+Numeric base is 16 by default.
+You can specify a number base with the following prefixes and
+suffixes (different bases can be used in one expression):
+
+Prefixes:
+0..  - oct (x8)         010 (oct)  = 8 (dec)
+0x.. - hex (x16)        0x10 (hex) = 16 (dec)
+
+Suffixes:
+..i  - bin (x2)         10i (bin) = 2 (dec)
+..o  - oct (x8)         77o (oct) = 63 (dec)
+..t  - dec (x10)        100t (dec) = 100 (dec )
+..h  - hex (x16)        0ffh (hex) = 255 (dec )
+
+Strings up to 8 characters long can be used too:
+ "12345678"+1="12345679"
+
+@x - get value under cursor, x is one of:
+ b - signed char
+ B - unsigned char (BYTE)
+ w - signed short
+ W - unsigned short (WORD)
+ d - signed long
+ D - unsigned long (DWORD)
+ q - signed int64
+ Q - unsigned int64 (QWORD)
+
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                          Block                              บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Block]
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Block ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ *                 - mark/unmark block
+ Ctrl-*            - mark all
+ Alt-*             - resize block to current offset
+ [                 - top of the block
+ ]                 - bottom of the block
+ Insert            - toggle insert/overwrite block mode
+ F2       - PutBlk - write block 
+ Ctrl-F2  - GetBlk - read block 
+ Alt-F2   - FilBlk - fill block 
+ Shift-F2 - DelBlk - delete marked block
+ Shift-F5 - CpyBlk - copy marked block
+ Shift-F6 - MovBlk - move marked block
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                         Bookmark                            บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Bookmark]
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Bookmarks ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ +                 - store current state
+ -                 - restore state
+ Alt-1...Alt-8     - restore N-th state
+ Alt-Minus         - delete current state
+ Alt-0             - clear all bookmarks
+ Backspace         - return after goto/find/cref
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                      Keyboard macros                        บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[KbMacro]
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Macro ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Ctrl-Minus        - Macro manager
+ Ctrl-.            - start/stop recording macro to Macro0
+ Ctrl-0            - play Macro0
+ Ctrl-1            - play Macro1
+ ...                 ...
+ Ctrl-8            - play Macro8
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                  Keyboard macros manager                    บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[KbMacroManager]
+ Enter             - play the macro
+ F2      - From 0  - copy macro0 here
+ F4      - Delay   - set delay between "key pressings"
+ F5      - Rename  - rename macro
+ F8      - Unload  - unload macro
+ F9      - Store   - save macro to a file
+ F10     - Load    - load macro from file
+ F11     - Up      - move macro up
+ F12     - Down    - move macro down
+ Alt-F1  - Loop    - loop macro playback
+ Alt-F2  - FailSr  - stop playback if search returned no results
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        Fast key                             บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[FastKey]
+ [printable char]  - quick search in filenames
+ *                 - repeat quick search
+ Tab               - attempt filename completion
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                       Text view                             บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Text]
+ Enter             - switch mode to HEX
+ Ctrl-Backspace    - file history
+ Tab               - next file from file history
+ Escape            - quit without saving timestamp
+ Alt-P             - Save screen into file
+ Alt-=             - Calculator
+ Ctrl-Alt          - information
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Function  keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Wrap   - wrap/unwrap long lines
+ F4       - Mode   - select view mode
+ F6       - LnFeed - select "Line Feed" character(s)
+ F7       - Search - search
+ F8       - Table  - select translation table
+ F9       - Files  - file list
+ F10      - Quit   - quit with saving timestamp
+ Alt-F4   - ReLoad - reload file
+ Alt-F7   - Direct - toggle search direction
+ Alt-F10  - Leave  - leave current file
+ Ctrl-F3  - Replac - search & replace
+ Ctrl-F4  - ReRead - re-read file in buffer
+ Ctrl-F6  - Tab    - tab on/off
+ Ctrl-F7  - NextSr - search next
+  Ctrl-Enter       - search next
+ Ctrl-F9  - FilArg - file list from **argv
+ Ctrl-F10 - SavSta - save current state (position,search,etc...)
+ Ctrl-F11 - PrvFil - previous file from **argv
+ Ctrl-F12 - NxtFil - next file from **argv
+ Shift-F1 - Info   - toggle info bar
+ Shift-F7 - NextSr - search next
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Home              - beginning of line
+ End               - end of line
+ Right             - move by 1 character to the right
+ Left              - move by 1 character to the left
+ Ctrl-Right        - wrap off: move right by 20 characters
+                   - wrap on:  shift screen rigth
+ Ctrl-Left         - wrap off: move left by 20 characters
+                   - wrap on:  shift screen left
+ Ctrl-Home         - top of file
+ Ctrl-End          - end of file
+ Down              - move down by 1 line
+  Ctrl-PgDn        - move down by 1 line
+ Up                - move up by 1 line
+  Ctrl-PgUp        - move up by 1 line
+ PgDn              - move down by 1 page
+ PgUp              - move up by 1 page
++[Bookmark]
++[KbMacro]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        Hex view                             บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Hex]
+ Enter             - switch mode to CODE
+ Escape            - quit without saving timestamp
+ Ctrl-Backspace    - file history
+ Tab               - next file from file history
+ Alt-P             - Save screen into file
+ Alt-=             - Calculator
+ Ctrl-Alt          - information
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - PutBlk - write block 
+ F3       - Edit   - edit
+ F4       - Mode   - select view mode
+ F5       - Goto   - go to new offset
+ F6       - DatRef - find reference in code
+ F7       - Search - search
+ F8       - Header - show/edit EXE-header
+ F9       - Files  - file list
+ F10      - Quit   - quit with saving timestamp
+ Alt-F1   - Global - toggle global/local offset
+ Alt-F2   - FilBlk - fill block 
+ Alt-F3   - CryBlk - crypt block 
+ Alt-F4   - ReLoad - reload file
+ Alt-F7   - Direct - toggle search direction
+ Alt-F8   - Table  - select translation table
+ Alt-F10  - Leave  - leave current file
+ Alt-F11  - goWHex - word under cursor - go hex
+ Alt-F12  - goDHex - dword under cursor - go hex
+ Ctrl-F2  - GetBlk - read block 
+ Ctrl-F3  - Replac - search & replace
+ Ctrl-F4  - ReRead - re-read file in buffer
+ Ctrl-F5  - Base   - new base
+ Ctrl-F7  - NextSr - search next
+  Ctrl-Enter       - search next
+ Ctrl-F9  - FilArg - file list from **argv
+ Ctrl-F10 - SavSta - save current state (position,search,etc...)
+ Ctrl-F11 - PrvFil - previous file from **argv
+ Ctrl-F12 - NxtFil - next file from **argv
+ Shift-F1 - Info   - toggle info bar
+ Shift-F2 - DelBlk - delete marked block
+ Shift-F3 - Insert - insert bytes at current position
+ Shift-F4 - PrtBlk - save marked block as hexdump
+ Shift-F5 - CpyBlk - copy marked block
+ Shift-F6 - MovBlk - move marked block
+ Shift-F7 - NextSr - search next
+ Shift-F9 - OffTbl - table of offsets under cursor
+ Shift-F10- GoCurs - go to offset under cursor
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Home              - allign on 16 bytes
+ End               - last byte in paragraph
+ Right             - move by 1 character to the right
+ Left              - move by 1 character to the left
+ Ctrl-Right        - move screen right
+ Ctrl-Left         - move screen left
+ Ctrl-Home         - top of file
+ Ctrl-End          - end of file
+ Down              - move down by 1 line
+ Up                - move up by 1 line
+ PgDn              - move down by 1 page
+ PgUp              - move up by 1 page
+ Ctrl-PgDn         - move screen up
+ Ctrl-PgUp         - move screen down
++[Block]
++[Bookmark]
++[KbMacro]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                         Hex edit                            บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HexEdit]
+ Tab               - switch hex/ascii edit
+ Escape            - quit without saving
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F3       - Undo   - restore original byte under cursor
+ F4       - Byte   - bit edit byte under cursor
+ F5       - Word   - bit edit word under cursor
+ F6       - Dword  - bit edit double word under cursor
+ F7       - Crypt  - crypt/deCrypt
+ F8       - Xor    - xor crypt
+ F9       - Update - save changes
+ F10      - Trunc  - truncate file at cursor
+ Ctrl-F7  - SetCry - initialize crypto
+ Ctrl-F8  - SetXor - initialize xor crypto
+ Alt-F8   - Table  - view translation table
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Home              - beginning of line
+ End               - end of line
+ Right             - move by 1 character to the right
+ Left              - move by 1 character to the left
+ Ctrl-Home         - top of edit buffer
+ Ctrl-End          - end of edit buffer
+ Down              - move down by 1 line
+ Up                - move up by 1 line
+ Backspace         - restore original previous byte
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                         Bits edit                           บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[BitsEdit]
+ Escape            - quit without saving
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Not    - invert current bit
+ F3       - Undo   - restore original bit under cursor
+ F9       - Update - save changes
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Home              - first bit
+ End               - last bit
+ Right             - right by 1 bit
+ Left              - left by 1 bit
+ Backspace         - restore original previous bit
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                         Code view                           บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Code]
+ Enter             - switch mode to TEXT
+ Escape            - quit without saving timestamp
+ Ctrl-Backspace    - file history
+ Tab               - next file from file history
+ Alt-P             - save screen into file
+ Alt-=             - Calculator
+ Ctrl-Alt          - information
+ /        - Top    - current offset at top
+ Ctrl-Left         - decrease opcode show length
+ Ctrl-Right        - increase opcode show length
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - PutBlk - write block 
+ F3       - Edit   - edit
+ F4       - Mode   - select view mode
+ F5       - Goto   - go to new offset
+ F6       - Refer  - find reference on current position
+ F7       - Search - search
+ F8       - Header - show/edit EXE-header
+ F9       - Files  - file list
+ F10      - Quit   - quit with saving timestamp
+ Alt-F1   - Global - toggle global/local offset
+ Alt-F2   - FilBlk - fill block 
+ Alt-F4   - ReLoad - reload file
+ Alt-F5   - Ord___ - name ordinal load/show toggle
+ Alt-F6   - Cmd/1b - toggle wildcard & cref search step
+ Alt-F7   - Direct - toggle search direction
+ Alt-F8   - Table  - select translation table
+ Alt-F10  - Leave  - leave current file
+ Alt-F11  - goWHex - word under cursor - go hex
+ Alt-F12  - goDHex - dword under cursor - go hex
+ Ctrl-F1  - OpSize - toggle opcode size
+ Ctrl-F2  - GetBlk - read block 
+ Ctrl-F3  - Replac - search & replace
+ Ctrl-F4  - ReRead - re-read file in buffer
+ Ctrl-F5  - Base   - new base
+ Ctrl-F6  - NextRf - next reference
+ Ctrl-F7  - NextSr - search next
+  Ctrl-Enter       - search next
+ Ctrl-F9  - FilArg - file list from **argv
+ Ctrl-F10 - SavSta - save current state (position,search,etc...)
+ Ctrl-F11 - PrvFil - previous file from **argv
+ Ctrl-F12 - NxtFil - next file from **argv
+ Shift-F1 - Info   - toggle info bar
+ Shift-F2 - DelBlk - delete marked block
+ Shift-F3 - Insert - insert bytes at current position
+ Shift-F4 - PrtBlk - save marked block as decode
+ Shift-F5 - CpyBlk - copy marked block
+ Shift-F6 - MovBlk - move marked block
+ Shift-F7 - NextSr - search next
+ Shift-F9 - OffTbl - table of offsets under cursor
+ Shift-F10- GoCurs - go to offset under cursor
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Right             - move by 1 character to the right
+ Left              - move by 1 character to the left
+ Ctrl-Home         - top of file
+ Ctrl-End          - end of file
+ Down              - move down by 1 line
+ Up                - move up by 1 line
+ PgDn              - move down by 1 page
+ PgUp              - move up by 1 page
+ Ctrl-PgDn         - move screen up by 1 line
+ Ctrl-PgUp         - move screen down by 1 line
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Jumps/calls ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ 1-9,A-Z           - jump to target
+ 0                 - return to previous position
++[Block]
++[Bookmark]
++[KbMacro]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                         Code edit                           บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[CodeEdit]
+ Escape            - quit without saving
+ Enter             - call assembler
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Asm    - call assembler
+ F3       - Undo   - restore original byte under cursor
+ F7       - Crypt  - crypt/deCrypt
+ F8       - Xor    - xor crypt
+ F9       - Update - save changes
+ F10      - Trunc  - truncate file at cursor
+ Ctrl-F7  - SetCry - initialize crypto
+ Ctrl-F8  - SetXor - initialize xor crypto
+ Alt-F8   - Table  - select translation table
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Right             - move by 1 character to the right
+ Left              - move by 1 character to the left
+ Ctrl-Home         - top of edit buffer
+ Ctrl-End          - end of edit buffer
+ Down              - move down by 1 line
+ Up                - move up by 1 line
+ Backspace         - restore original previons byte
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                     MZ-Header view                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderMZ]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - GoOvr  - go to overlay
+ F3       - Edit   - edit header
+ F4       - Image  - go to EXE file image top
+ F5       - Entry  - go to entry point
+ F6       - NewExe - go to new executable
+ F8       - NewHdr - show NewEXE header (if present)
+ F10      - GoHdr  - go to header offset
+ F11      - Prev   - show previous header for overlay MZ
+ F12      - Next   - show next header for overlay MZ
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                      Header edit                            บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderEdit]
+ Escape            - quit without saving
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F3       - Edit   - edit value under cursor
+ F4       - Undo   - restore original value under cursor
+ F5       - Gl/Loc - toggle local/global offset display
+ F9       - Update - save changes
+ Alt-F3   - A-Edit - alternative edit
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                     NE-Header view                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderNE]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Flags  - show program flags
+ F3       - Edit   - edit header
+ F4       - Go Hdr - go to NE-header top 
+ F5       - Entry  - go to entry point
+ F6       - SegTbl - show Segment table
+ F7       - ModRef - show Module Reference
+ F8       - OldHdr - show oldEXE header
+ F9       - Export - show Export
+ F10      - SelfLd - show Self-loading table
+ Ctrl-F2  - SegTbl - go to offset of Segment table
+ Ctrl-F3  - RsrTbl - go to offset of Resource table
+ Ctrl-F4  - ResNam - go to offset of Resident name
+ Ctrl-F5  - ModRef - go to offset of Module reference
+ Ctrl-F6  - ImpNam - go to offset of Import name
+ Ctrl-F7  - EntTab - go to offset of Entry table
+ Ctrl-F8  - NonRes - go to offset of Non-resident name
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                 NE Segment table flags                      บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[NE Segment flags]
+; Michael Hering <herinmi@tu-cottbus.de>
+     yyy d vv U R o p s m i M . D
+       | |  | | | | | | | | | | |
+       | |  | | | | | | | | | | 0 Data segment rather than code segment
+       | |  | | | | | | | | | 1 unknown?
+       | |  | | | | | | | | 2 real Mode
+       | |  | | | | | | | 3 iterated
+       | |  | | | | | | 4 movable
+       | |  | | | | | 5 sharable
+       | |  | | | | 6 preloaded rather than loaded on demand
+       | |  | | | 7 execute-only (code) or read-only (data)
+       | |  | | 8 Relocations (immediately following the code for this segment)
+       | |  | 9 debug info present
+       | |  10-11 privilege 80286 DPL bits
+       | 12 discardable
+       13-15 discard priority
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                   LE/LX-Header view                         บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderLX]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Flags  - show program flags
+ F3       - Edit   - edit header
+ F4       - Go Hdr - go to LE/LX-header top
+ F5       - Entry  - go to entry point
+ F6       - ObjTbl - show Object table
+ F7       - Import - show Import module name table
+ F8       - OldHdr - show oldEXE header
+ F9       - Export - show Export
+ F10      - EntDDB - show Entry DDB (only for LE)
+ Ctrl-F1  - ObjTbl - go to offset of Object table
+ Ctrl-F2  - PagTbl - go to offset of Object page table
+ Ctrl-F3  - RsrTbl - go to offset of Resource table
+ Ctrl-F4  - ResNam - go to offset of Resident name
+ Ctrl-F5  - FxPage - go to offset of Fixup page table
+ Ctrl-F6  - ImpNam - go to offset of Import name
+ Ctrl-F7  - EntTab - go to offset of Entry table
+ Ctrl-F8  - NonRes - go to offset of Non-resident name
+ Ctrl-F9  - ImpPrc - go to offset of Import procedure name table
+ Ctrl-F10 - FxRec  - go to offset of Fixup record table
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                  LX Object table flags                      บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[LX Object flags]
+; Michael Hering <herinmi@tu-cottbus.de>
+ 31-16 v f B a GT .Z i p s d O e w r
+    |  | | | |  |  | | | | | | | | |
+    |  | | | |  |  | | | | | | | | 0 readable
+    |  | | | |  |  | | | | | | | 1 writeable 
+    |  | | | |  |  | | | | | | 2 executable  
+    |  | | | |  |  | | | | | 3 resource   
+    |  | | | |  |  | | | | 4 discardable    
+    |  | | | |  |  | | | 5 shared     
+    |  | | | |  |  | | 6 preloaded     
+    |  | | | |  |  | 7 invalid       
+    |  | | | |  |  8-9 type, 00 normal or 01 Zero-filled                
+    |  | | | |  10-11 resident, 10 resident and long-lockable        
+    |  | | | |                  11 resident and contiguous        
+    |  | | | 12 16:16 alias required           
+    |  | | 13 "BIG" (Huge: 32-bit)            
+    |  | 14 conforming             
+    |  15 privilege "OBJECT_I/O_LEVEL"
+    all bits in this range are reserved
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Escape            - quit
+ Tab               - Show Object page table
+ CR                - Go to offset of object
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                     PE-Header view                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderPE]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Flags  - show program flags
+ F3       - Edit   - edit header
+ F4       - Go Hdr - go to PE-header top
+ F5       - Entry  - go to entry point
+ F6       - ObjTbl - show Object table
+ F7       - Import - show Import
+ F8       - OldHdr - show oldEXE header
+ F9       - Export - show Export
+ F10      - Dir    - show PE Directory structure
+ Alt-F2   - GoOvr  - go to overlay
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                    PE Object table                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[PE Object]
+ Escape            - quit whitout changes
+ CR                - Go to offset of the object
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F3       - Edit   - edit record
+ F4       - Add    - add new record
+ F7       - Clear  - clear record with zeroes
+ F8       - Delete - delete record
+ F9       - Save   - save changes
+ F11      - Up     - move record up
+ F12      - Down   - move record down
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Flag for object ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+;    winnt.h
+;    BUILD Version: 0093
+;    Copyright (c) 1990-1993  Microsoft Corporation
+ 0x00000004       16-bit offset code
+ 0x00000020       Code
+ 0x00000040       Initialized data
+ 0x00000080       Uninitialized data
+ 0x00000200       Comments
+ 0x00000400       An overlay
+ 0x00000800       Will not become part of the image
+ 0x00001000       Comdat
+ 0x00500000       Default alignment
+ 0x02000000       Can be discarded
+ 0x04000000       Not cachable
+ 0x08000000       Not pageable
+ 0x10000000       Shareable
+ 0x20000000       Executable
+ 0x40000000       Readable
+ 0x80000000       Writeable
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                   PE-Import all view                        บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[ImportAll]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F3       - byOrd  - sort by ordinal
+ F4       - byName - sort by name
+ F5       - byDLL  - sort by dll name
+ F7       - DLLs   - DLLs list
+ F8       - Delay  - Delay DLLs list
+ F9       - FlName - name filter
+ F10      - FlDLL  - dll name filter
+ F11      - Refer  - search current name in code
+ F12      - RefAny - search any from name filter
++[FastKey]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        Export view                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Export]
+ Escape            - quit
+ Enter             - go to function's offset
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - byOrd  - sort by ordinal
+ F3       - byOffs - sort by offset
+ F4       - byName - sort by name
+ F9       - FlName - name filter
++[FastKey]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                    NLM-Header view                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderNLM]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Flags  - show module flags
+ F3       - Edit   - edit header
+ F5       - Entry  - go to entry point
+ F6       - Exit   - go to exit point
+ F7       - Librar - show Autoload libraries
+ Ctrl-F2  - Custom - go to Custom offset
+ Ctrl-F3  - Public - go to Public offset
+ Ctrl-F4  - Fixup  - go to Fixups offset
+ Ctrl-F5  - Import - go to Import offset
+ Ctrl-F6  - Export - go to Export offset
+ Ctrl-F7  - Librar - go to Autoload library offset
+ Ctrl-F9  - Code   - go to Code offset
+ Ctrl-F10 - Data   - go to Data offset
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                    ELF-Header view                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HeaderELF]
+ Escape            - quit
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Flags  - show program flags
+ F3       - Edit   - edit header
+ F4       - PrgTbl - show program header
+ F5       - Entry  - go to entry point
+ F6       - SecTbl - show section table
+ F7       - Librar - show interpeter/needed library list
+ F8       - SymTbl - show symbol table
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                  Input/change base offset                   บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Base]
+ Enter             - select new base
+ Escape            - cancel
+ Home              - first line
+  PgUp             - first line
+ End               - last line
+  PgDn             - last line
+ Down              - move down by 1 line
+ Up                - move up by 1 line
+ Ctrl-F5           - set base to current offset
+ Any character     - edit current base
+
+ NOTE: if first character is '*', current base = current offset
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                          Crypt                              บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Crypt]
+ Escape            - quit
+ Enter             - edit crypt command
+ Insert            - insert crypt command after current
+ Del               - delete current crypt command
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Functions keys ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ F2       - Size   - set size of crypt: byte or word
+ F3       - Direct - set direction of crypt: forward or backward
+ F4       - Clear  - clear crypt programm and registers
+ F5       - ClrReg - clear crypt registers
+ F6       - GoErr  - go to next error
+ F7       - Exit   - exit from initialize
+ F9       - Store  - store crypt program in the file
+ F10      - Load   - load crypt program from file
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Cursors movement ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ Plus              - crypt IP (marked as ">") down
+ Minus             - crypt IP (marked as ">") up
+ Home              - top of crypt programm
+ End               - end of crypt programm
+ Down              - move down by 1 line
+ Up                - move up by 1 line
+ ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ Crypt commands ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+ mov     reg,reg/imm
+ xor     reg,reg/imm
+ add     reg,reg/imm
+ sub     reg,reg/imm
+ rol     reg,reg/imm
+ ror     reg,reg/imm
+ and     reg,reg/imm
+ or      reg,reg/imm
+ xchg    reg,reg
+ neg     reg
+ mul     reg
+ div     reg
+ loop    nLine
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        LE DDB Entry                         บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[DDB Entry]
+ Escape            - return to header
+ F2       - Contrl - go to Control Procedure
+ F3       - V86API - go to V86 API Procedure
+ F4       - PMAPI  - go to PM  API Procedure
+ F10      - Servic - show DDB Service Table
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                          File list                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[FileList]
+ F2       - Hidden - toggle hidden files display
+ F3       - Name   - sort by name
+ F4       - Exten  - sort by extension
+ F5       - Time   - sort by time
+ F6       - Size   - sort by size
+ F7       - Unsort - display unsorted
+ F8       - Revers - reverse sort
+ F9       - Files  - file history
+ F10      - Filter - set filemask
+ Alt-F1   - Drive  - change drive
+ Alt-F2   - Drive  - change drive
+ Alt-F4   - ReRead - re-read directory
+ Ctrl-F1  - Store1 - store current path   1
+ Ctrl-F2  -        - retrieve stored path 1
+ Ctrl-F3  - Store2 - store current path   2
+ Ctrl-F4  -        - retrieve stored path 2
+ Ctrl-F5  - Store3 - store current path   3
+ Ctrl-F6  -        - retrieve stored path 3
+ Ctrl-F7  - Store4 - store current path   4
+ Ctrl-F8  -        - retrieve stored path 4
+ Ctrl-F9  - Sta___ - toggle keeping state for next file
+ Ctrl-F10 - Home   - go to home dir
+ Ctrl-\            - go to root dir
+ Ctrl-PgUp         - go to parent dir
+ Insert            - open file, create new if doesn't exist
+ Delete            - delete file under cursor
++[FastKey]
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                        History files                        บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[HistoryFiles]
+ F2       - Path   - toggle full path display
+ F5       - Mark   - toggle Next/Prevfile mark
+ F8       - Delete - delete entry under cursor
+ F9       - Files  - file list
+ Ctrl-F5  - MrkAll - mark all entries
+ Ctrl-F8  - Clear  - clear all entries
+ Alt-F5   - UnMark - unmark all entries
+ Ctrl-Enter        - alternative input for entry under cursor
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                  Get block from history files               บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[BlockFrom File]
+ Left              - scroll path left
+ Right             - scroll path right
+ F2       - Path   - toggle full path display
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ              Table offsets under cursor                     บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[OffsetsTable]
+Enter              - go to table offset in current mode
+Crtl-Enter         - go to table offset in reverse mode
+Backspace          - go to offset under line
+Esc                - exit
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                      Xlat chart show                        บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[XlatChart]
+Up/Down            - change background color
+Left/Rigth         - change foreground color
+PgUp/PgDn          - previous/next table
+Esc                - exit
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                         Xlat table                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[XlatTable]
+ F4       - CodePg - custom codepage (for unicode only)
+ F6       - Even/Odd - set even/odd offset (for unicode only)
+ F8       - Next   - next table
+ F9       - Table  - show current table chart (not for unicode)
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                   Text string extraction                    บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+[Strings]
+ Enter             - go to string offset
+ F2       - Offset - toggle offset display
+ F4       - ReRead - re-read strings
+ F9       - Store  - save strings to file
+ F10      - Filter - set the filter
+ Plus              - increase minimum displayed length
+ Minus             - decrease minimum displayed length
+;
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;บ                       Last section                          บ
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+[End]              *** End of helpfile ***

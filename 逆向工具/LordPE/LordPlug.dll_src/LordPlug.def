@@ -1,0 +1,6 @@
+LIBRARY  LordPlug
+EXPORTS
+Searchimport      @1
+PopMenuCopy       @2
+GetNextitem       @3
+SetCursortoItem   @4

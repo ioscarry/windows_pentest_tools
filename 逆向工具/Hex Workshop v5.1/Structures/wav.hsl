@@ -1,0 +1,201 @@
+/*****************************************************************************
+ * wav.hsl - Structure definitions for the .wav file format.
+ *  
+ * Copyright (c) 2007 BreakPoint Software, Inc.  All Rights Reserved
+ *
+ *****************************************************************************
+ * Revision History:
+ *  10/15/07 - RJA - Original
+ */
+
+#include "standard-types.hsl"
+
+#pragma displayname("wav structures")
+#pragma fileextensions(".wav")
+
+#pragma byteorder(little_endian)
+
+struct RIFFHEADER
+{
+    char chunkID[4];
+#pragma verify match_var_str("chunkID", "RIFF")
+    DWORD chunkSize ;
+    char type[4] ;
+#pragma verify match_var_str("type", "WAVE")
+} ;
+
+#pragma enumsize(2)
+typedef enum tagFORMAT_TAG
+{
+    UNKNOWN = 0,
+    PCM = 1,
+    MS_ADPCM = 1,
+    G711_alaw = 6,
+    G711_ulaw = 7,
+    IMA_ADPCM = 17,
+    G723 = 20,
+    GSM = 49,
+    G721 = 64,
+    MPEG = 80,
+    EXPERIMENTAL = 65536
+} FORMAT_TAG ;
+
+struct FORMAT_CHUNK
+{
+  char           chunkID[4];
+#pragma verify match_var_str("chunkID", "fmt ")
+  DWORD          chunkSize;
+  FORMAT_TAG     formatTag;
+  WORD           channels;
+  DWORD          samplesPerSec;
+  DWORD          avgBytesPerSec;
+  WORD           blockAlign;
+  WORD           bitsPerSample;
+  blob           extraData[chunkSize-16] ;
+} ;
+
+struct DATA_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "data")
+    DWORD          chunkSize;
+    blob           data[chunkSize];
+} ;
+
+struct FACT_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "fact")
+    DWORD          chunkSize;
+    blob           data[chunkSize];
+} ;
+
+struct WAVL_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "wavl")
+    DWORD          chunkSize;
+    blob           data[chunkSize];
+} ;
+
+struct SLNT_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "SLNT")
+    DWORD          chunkSize;
+#pragma verify match_var_int("chunkSize", "4")
+    DWORD          numSilenceSamples; 
+} ;
+
+#pragma hide()
+struct CUE_POINT
+{
+    DWORD id ;
+    DWORD position ;
+    DWORD chunkId;
+    DWORD chunkStart ;
+    DWORD blockStart ;
+    DWORD sampleOffset ;
+} ;
+#pragma show()
+
+struct CUE_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "cue ")
+    DWORD          chunkSize;
+    DWORD          numCuePoints ;
+    struct CUE_POINT cuePoints[numCuePoints] ;
+} ;
+
+#pragma hide()
+struct SEGMENT 
+{
+    DWORD cuePoint ;
+    DWORD lengthInSamples ;
+    DWORD numRepeats ;
+} ;
+#pragma show()
+
+struct PLST_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "plst")
+    DWORD          chunkSize;
+    DWORD          numSegments;
+    struct SEGMENT segments[numSegments] ;
+} ;
+
+struct LIST_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "list")
+    DWORD          chunkSize;
+    DWORD          typeID ;
+    blob           data[chunkSize-4];
+} ;
+
+struct LABL_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "labl")
+    DWORD          chunkSize;
+    DWORD          cuePointID;
+    char           label[chunkSize-4];
+} ;
+
+struct NOTE_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "note")
+    DWORD          chunkSize;
+    DWORD          cuePointID;
+    char           label[chunkSize-4];
+} ;
+
+struct LTXT_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "ltxt")
+    DWORD          chunkSize;
+    DWORD          cuePointID;
+    DWORD          sampleLength;
+    DWORD          purposeId ;
+    WORD           country;
+    WORD           language;
+    WORD           dialect;
+    WORD           codePage;
+    char           label[chunkSize-20];
+} ;
+
+struct SMPL_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "smpl")
+    DWORD          chunkSize;
+    DWORD          manufacture;
+    DWORD          product;
+    DWORD          samplePeriod;
+    DWORD          midiUnityNote;
+    DWORD          midiPitchFraction;
+    DWORD          smpteFormat;
+    DWORD          smpteOffset;
+    DWORD          numSampleLoops;
+    DWORD          samplerData;
+    DWORD          sampleLoops[chunkSize-36]; // TODO example data
+} ;
+
+struct INST_CHUNK
+{
+    char           chunkID[4];
+#pragma verify match_var_str("chunkID", "inst")
+    DWORD          chunkSize;
+#pragma verify match_var_int("chunkSize", "7")
+    BYTE           unshiftedNote;
+    BYTE           fineTuneDb;
+    BYTE           gain;
+    BYTE           lowNote;
+    BYTE           highNote;
+    BYTE           lowVelocity;
+    BYTE           highVelocity;
+} ;
