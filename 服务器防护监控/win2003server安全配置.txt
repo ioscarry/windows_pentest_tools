@@ -1,0 +1,197 @@
+win2003server安全配置
+//卸载不安全组件
+
+regsvr32 /u C:\WINDOWS\System32\wshom.ocx                           
+
+regsvr32 /u C:\WINDOWS\System32\\shell32.dll
+
+//磁盘权限...
+
+cacls c:\ /c /g administrators:f system:f
+
+cacls d:\ /c /g administrators:f system:f
+
+cacls e:\ /c /g administrators:f system:f
+
+cacls f:\ /c /g administrators:f system:f
+
+cacls "C:\Documents and Settings" /c /g administrators:f system:f
+
+cacls "C:\Documents and Settings\All Users" /c /g administrators:f system:f
+
+cacls "C:\Program Files" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\cacls.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\net.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\net1.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\cmd.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\tftp.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\netstat.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\regedt32.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\at.exe" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\shell32.dll" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\format.com" /c /g administrators:f system:f
+
+cacls "C:\Windows\System32\wshom.ocx" /c /g administrators:f system:f
+
+cacls "c:\windows\system32\shell32.dll" /c /g administrators:f system:f
+
+cacls "C:\WINDOWS\System32\activeds.tlb" /c /g administrators:f system:f
+
+RD C:\Inetpub /S /Q
+
+cacls C:\WINDOWS\system32\Cmd.exe /e /d   guests
+
+cacls "C:\WINDOWS\System32\shell32.dll" /e /d guests
+
+cacls "C:\WINDOWS\System32\scrrun.dll" /e /d guests
+
+cacls "C:\WINDOWS\System32\net.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\net1.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\tftp.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\netstat.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\regedit.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\at.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\attrib.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\ca.exe" /e /d guests
+
+cacls "C:\WINDOWS\System32\format.com" /e /d guests
+
+注册表操作：
+
+//fso组件改名--------网上搜索..修改注册表中的2个地方
+
+//shell.application改名...
+
+// 禁止空连接,Local_Machine\System\ CurrentControlSet\Control\LSA                 RestrictAnonymous 把这个值改成”1”
+
+//删除默认共享,HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters                 AutoShareServer 类型 REG_DWORD 值0
+
+SQL SERVER设置:
+
+1,将master表中存储过程"sp_password"的public和guest权限取消
+
+2,删除win系统用户sqldebugger ---没用的帐号，还经常给黑客利用
+
+3,用户去掉db_onwer权限
+
+4,在 企业管理器 中运行以下脚本：
+
+use master
+
+EXEC sp_dropextendedproc 'xp_cmdshell'
+
+EXEC sp_dropextendedproc 'Sp_OACreate'
+
+EXEC sp_dropextendedproc 'Sp_OADestroy'
+
+EXEC sp_dropextendedproc 'Sp_OAGetErrorInfo'
+
+EXEC sp_dropextendedproc 'Sp_OAGetProperty'
+
+EXEC sp_dropextendedproc 'Sp_OAMethod'
+
+EXEC sp_dropextendedproc 'Sp_OASetProperty'
+
+EXEC sp_dropextendedproc 'Sp_OAStop'
+
+EXEC sp_dropextendedproc 'Xp_regaddmultistring'
+
+EXEC sp_dropextendedproc 'Xp_regdeletekey'
+
+EXEC sp_dropextendedproc 'Xp_regdeletevalue'
+
+EXEC sp_dropextendedproc 'Xp_regenumvalues'
+
+EXEC sp_dropextendedproc 'Xp_regremovemultistring'
+
+EXEC sp_dropextendedproc 'Xp_regwrite'
+
+drop procedure sp_makewebtask
+
+5，为网站建立一个非sa用户
+
+6，SQL SERVER以某特殊用户运行，增加一个系统用户属于users 组，专门代替system来运行mssql
+
+禁用以下服务：
+
+Workstation
+
+TCP/IP NetBIOS Helper
+
+Telnet
+
+Print Spooler
+
+Remote Registry
+
+Routing and Remote Access
+
+Computer Browser
+
+Server
+
+帐户设置：
+
+禁用 Guest 帐户，改为复杂密码
+
+重命名 Administrator 帐户，并为它设置强密码
+
+禁用"IUSR_MACHINE"
+
+删除 sqldebugger
+
+防火墙：
+
+只开 80，3389（建议修改3389端口）
+
+如果数据库在本地，1433 也不开
+
+如果有serv-u就开21吧，建议修改为其它端口，还有serv-u要修改内建的默认密码，防止给提升权限，可以用xdowns提供的版本，密码已经修改为一堆破解不了的迷密码...黑客怎么输入都是不对的。
+
+IIS方面：
+
+1，删除默认站点
+
+2，删除不使用的脚本映射(如.htw,.idc等)
+
+3，禁止"FrontPage Server Extensions"
+
+4，在"Web 服务扩展"中禁止"WebDAV"
+
+5，asp的站就删除剩下asp映射，php就删除剩下php映射
+
+6，每个网站一个独立的系统用户，都属于自己建立的组，设置这个组在任何盘都拒绝，只允许你的web目录
+
+针对arp欺骗：
+
+网关/路由 那绑定你的ip和mac
+
+你的服务器那绑定真正的网关
+
+arp -s   %IP%   %Mac%
+
+最后，严格控制网站对应的用户各个目录的权限（这点如果是大站，比较重要的站建议做做）：
+
+图片的目录：只能读，需要上传的加个写入，千万不要给运行权限
+
+不需要修改的东西都只有读的权限，asp或php就加个运行，后台改名字，登录加验证码，在你验证码的基础上，按照不同的日期，这个数字加上特定的数字，比如显示：1234 今天星期二，那么我规定，要写入 212342 才能正确
+
+一切静态化，动态的只是搜索和评论（干脆不要），做好安全过滤，防止注入
+
