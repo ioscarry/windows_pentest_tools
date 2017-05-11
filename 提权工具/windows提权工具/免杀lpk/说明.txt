@@ -1,0 +1,1 @@
+压缩包里有2个文件，一个是lpk.dll，一个是sethc.exe，其中sethc.exe是lpk.dll执行后释放到系统目录安装shift后门，然后么，你懂的，5下shift，cmd.exe就出来了。

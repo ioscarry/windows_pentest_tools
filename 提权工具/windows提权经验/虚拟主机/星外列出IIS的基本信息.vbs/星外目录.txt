@@ -1,0 +1,213 @@
+
+星外虚拟主机提权目录 
+
+C:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\
+C:\php\PEAR\
+C:\Program Files\Zend\ZendOptimizer-3.3.0\ 
+C:\Program Files\Common Files\有的杀毒 防火墙目录有权限
+C:\7i24.com\iissafe\log\     不过新版本的貌似放到C:\windows\下了，并且我也没看到有iissafe文件夹了
+C:\RECYCLER  C:\windows\temp\  看运气了
+c:\Program Files\Microsoft SQL Server\90\Shared\ErrorDumps\
+还有这个,主要看MSSQL版本问题
+一切看情况而定了, 有的星外网站目录和系统盘设置都很BT, 但是其他盘如 E,F盘,却可读可写饿e:\recycler\
+f:\recycler\
+
+C:\Program Files\Symantec AntiVirus\SAVRT\
+
+C:\WINDOWS\7i24.com\FreeHost
+C:\php\dev
+C,D,E… 以下不一定有权限
+C:\~1 
+C:\System Volume Information 
+
+C:\Program Files\Zend\ZendOptimizer-3.3.0\docs
+C:\Documents and Settings\All Users\DRM\
+
+C:\Documents and Settings\All Users\Application Data\McAfee\DesktopProtection
+
+C:\Documents and Settings\All Users\Application Data\360safe\softmgr\
+
+C:\Program Files\Microsoft SQL Server\90\Shared\ErrorDumps
+
+
+
+转载处:t00ls.net
+声明，这不是什么星外0DAY，这充其量只是一个在找不到可写可执行目录的一个提权思路。我不敢说是我最先发现的，可能有其他人也发现了，并且也在利用了。无数实例证明了lcx前辈那句话，细节决定成败。这只是入侵渗透中的细节问题，刚好我注意到了。下面正文开始。
+
+众所周知要成功提权星外主机就要找到可写可执行目录，可近来星外主机的目录设置越来越BT，几乎没有可写可执行目录。另一个“提权思路”出现了。寻找服务器上安装的第3方软件某些文件的权限问题来进行文件替换，将这些文件替换为我们的cmd.exe和cscript.exe来提权，经我测试发现以下服务器常用软件的某些文件权限为Everyone即为所有用户权限，可以修改，可以上传同文件名替换，删除，最重要的是还可以执行。
+
+首先是我们可爱的360杀毒。
+
+c:\Program Files\360\360Safe\AntiSection\mutex.db   360杀毒数据库文件
+c:\Program Files\360\360Safe\deepscan\Section\mutex.db  360杀毒数据库文件
+c:\Program Files\360\360sd\Section\mutex.db   360杀毒数据库文件
+
+c:\Program Files\360\360Safe\deepscan\Section\mutex.db这个文件，只要安装了360杀毒就一定存在，并且有Everyone权限。其他2个文件不一定。
+
+c:\Program Files\Helicon\ISAPI_Rewrite3\error.log   态设置软件ISAPI Rewrite日志文件
+c:\Program Files\Helicon\ISAPI_Rewrite3\Rewrite.log  态设置软件ISAPI Rewrite日志文件
+c:\Program Files\Helicon\ISAPI_Rewrite3\httpd.conf  静态设置软件ISAPI Rewrite配置文件
+
+主要是ISAPI Rewrite 3.0版本存在权限问题，老版本暂时没发现有此类问题。
+
+c:\Program Files\Common Files\Symantec Shared\Persist.bak 诺顿杀毒事件日志文件
+
+c:\Program Files\Common Files\Symantec Shared\Validate.dat 诺顿杀毒事件日志文件
+
+c:\Program Files\Common Files\Symantec Shared\Persist.Dat  诺顿杀毒事件日志文件
+
+诺顿杀毒可能局限于版本，我本机XP并未找到以上文件
+
+以下是最后2个可替换文件
+c:\windows\hchiblis.ibl  华盾服务器管理专家文件许可证
+
+c:\Documents and Settings\All Users\Application Data\Hagel Technologies\DU Meter\log.csv
+
+DU Meter的流量统计信息日志文件
+
+
+暂时知道以上文件权限为Everyone，注意，即使可替换文件的所在目录你无权访问，也照样可以替换执行。比如D:\Program Files\360\360Safe\deepscan\Section\mutex.db，可D:\Program Files\360\360Safe\deepscan\Section目录没有访问权限，用BIN牛的aspx大马访问D:\Program Files\360\360Safe\deepscan\Sectio显示拒绝访问，可mutex.db文件在该目录下，你照样可以上传由cmd.exe换名后的mutex.db文件进行替换。
+
+这样一来在没有找到可写可执行目录时候，不防查看服务器上是否安装了以上软件，有的话可以上传同文件名替换原文件为你的提权文件。这样就可以成功执行了 
+
+目录或文件的权限设置有错会造成入侵!
+为了从根本上解决问题,我们建议所有用户升级受控端安装包到2011-3-15版,并点击设置"ASP.net严格安全模型",以下所说的问题所有设置了asp.net严格安全的用户不受影响. 
+对于服务器上的杀毒软件,我们建议装Mcafee,请不重装360,很多版本的360都有提权问题. 
+在2011-6-8星外发布了新版的星外杀马扫描工具(在群共享或星外后台可以下载) 
+在扫描结果中我们发现在大量服务器存在以下问题. 
+文件:C:\WINDOWS\TAPI\tsec.ini 
+处理办法:直接完全删除这个文件(不要保留在回收站) 
+360的 
+文件:C:\Program Files\360\360sd\Section\mutex.db 
+文件:C:\Program Files\360\360Safe\deepscan\Section\mutex.db 
+文件:C:\Program Files\360\360Safe\AntiSection\mutex.db 
+处理办法:直接完全删除360,所有360删除光后留下的文件都要删除 
+Flash: 
+文件:C:\WINDOWS\system32\Macromed\Flash\Flash10q.ocx 
+处理办法:直接完全删除(不要保留在回收站),不要在服务器上装Flash组件 
+
+IISrewrite3 
+文件:C:\Program Files\Helicon\ISAPI_Rewrite3\Rewrite.log 
+文件:C:\Program Files\Helicon\ISAPI_Rewrite3\httpd.conf 
+文件:C:\Program Files\Helicon\ISAPI_Rewrite3\error.log 
+处理办法:将三个文件的权限改成erveryone只读权限(没有写的权限) 
+
+DU Meter的流量统计信息日志文件 
+c:\Documents and Settings\All Users\Application Data\Hagel Technologies\DU Meter\log.csv 
+处理办法:删除它 
+诺顿 
+c:\Program Files\Common Files\Symantec Shared\Persist.bak 
+c:\Program Files\Common Files\Symantec Shared\Validate.dat 
+c:\Program Files\Common Files\Symantec Shared\Persist.Dat 
+处理办法:直接完全删除这个软件 
+华盾 
+文件:C:\WINDOWS\hchiblis.ibl 
+处理办法:直接完全删除这个过滤软件,如果因为别的原因不能删除,可以将权限改成everyone读与写,不能有everyone运行的权限. 
+一流过滤: 
+文件:C:\7i24.com\iissafe\log\startandiischeck.txt 
+文件:C:\7i24.com\iissafe\log\scanlog.htm 
+如果已经是最新版本的一流(2011-2-19)就不需要处理,如果是旧版本的,要先删除这两个文件,然后再升级一流.正常情况下,这两个文件只有everyone读写的权限(没有运行) 
+
+其他有可能提示的文件: 
+文件:C:\WINDOWS\Temp\Temporary Internet Files\Content.IE5\index.dat 
+文件:C:\WINDOWS\Temp\History\History.IE5\index.dat 
+文件:C:\WINDOWS\Temp\Cookies\index.dat 
+检查文件在高级权限管理中,是不是有everyone运行的权限,如果没有,就不用处理,如果有运行的权限要取消运行权限 
+文件:C:\7i24.com\LinkGate\log\.... 
+目录:C:\7i24.com\LinkGate\log 
+目录:C:\7i24.com\serverdoctor\log\ 
+文件:C:\7i24.com\serverdoctor\log\.... 
+不需要处理,星外的防盗链,服务器医生等软件默认已自动设置好权限 
+如果看下这样的提示: 
+2011-6-8 15:04:50,方法失败，意外错误代码为 32。 
+这是扫描软盘A:造成的,不用处理 
+部分zend版本可能有这个提示: 
+文件:C:\Program Files\Zend\ZendOptimizer-3.3.0\lib\Optimizer-3.3.0\php-5.2.x\ZendOptimizer.dll 
+目录:C:\Program Files\Zend\ZendOptimizer-3.3.0\lib\Optimizer-3.3.0\php-5.2.x...... 
+处理办法:将everyone的权限删除,改成adms,system全部权限,users只读权限. 
+
+处理后,请再用星外杀马扫描一次. 
+
+
+
+以下是旧的说明: 
+2011-3-9 
+经查我们发现部分服务器仍然存在安全问题,因此发布了新的扫描工具及安全包,请所有用户马上扫描并用安全包处理. 
+
+注意 
+2011-2-19 22:00 有用户反映安装了一流监控后,部分服务器的c:\7i24.com\iissafe\log\sys的权限不正常,经检查,正常的权限是只有erveryone权限,不应该有users权限组的任何权限的,如果你的服务器上有这个目录,并且这个目录多了users的权限,请马上下载最新版本的安全包,点"纠正出错的一流权限"就可以解决.如果用最新版本星外杀马提示"这是一流监控的目录权限问题未修正!请马上联系星外支持解决!!!"表明你尚未用最新的安全包处理,请用安全包处理后,再扫描一次。 
+
+关于c:\7i24.com\iissafe\log及\log\sys目录,正常的权限情况下,复制cmd.exe进去,双击是无法运行的,大家可以测试下,如果能运行肯定就是错的. 
+
+近期有用户的报告发映服务器被入侵,经查是回收站目录的权限有错造成的. 
+(最新发现一键GHOST产生的默认备份目录如~1也会有安全问题) 
+
+注意 
+请您在设置完安全包后,使用星外杀马工具最新版本点击扫描所有盘的所有目录功能,检查有没有权限问题,下载地址参考(更新于2011-3-9 !!!): 
+http://sys.7i24.com/system/support/show.asp?id=20101231000556 
+对于软件扫出来有权限问题的目录,除了C:\7i24.com目录外,别的目录,都要改成adms,system全部权限,别的,如everyone的权限都应该删除.users的权限也不能有写入的权限,另外,如果提示"这是一流监控的目录权限问题未修正!请马上联系星外支持解决!!!"表明你尚未用最新的安全包处理,请用安全包处理后,再扫描一次. 
+另外,所有安装诺顿10的用户,请马上升级成诺顿11,不然以下目录一升级诺顿就有权限问题: 
+C:\Program Files\Symantec AntiVirus\SAVRT 
+C:\Documents and Settings\All Users\Application Data\Symantec\Symantec AntiVirus Corporate Edition\7.5\I2_LDVP.TMP 
+这个目录会造成入侵. 
+
+以前的旧的说明: 
+
+请下载最新版的安全包(2011-1-13),点击"设置回收站目录权限"及"设置Users关键目录权限"功能,就可以解决以下问题: 
+回收站目录的权限存在users组成写入与运行权限造成的提权: 
+如: 
+C:\RECYCLER 
+D:\RECYCLER 
+.... 
+等目录,这些目录默认是隐藏的,您要看到这些目录需要显示系统文件才能看到. 
+如果这些目录中有你不认识的vbs,exe等文件就很可能是入侵后的后门. 
+注意,使用最新安全包后,可能会提示回收站被破坏,不用担心,这个提示不影响使用,也不用处理.安全包只能限制了USERs用户的调用回收站造成不安全.正常情况下,回收站只应该有adms,sytem全部的权限. 
+另外,我们还检查了所有可能有权限问题的目录,请点击设置"设置Users关键目录权限"功能,就可以解决,此功能对windows 2003/windows 2008R2同样有用,请您务必操作! 
+
+以下是近期的安全提示: 
+请下载最新版的安全包,点击"设置Media等目录权限"功能,就可以解决以下问题: 
+(其他的功能不用点,最新版的安全包可以用主控用户名登陆星外网站,在软件下载,老用户升级中下载) 
+如果以下目录中存在任何文件,可能是入侵造成的,在设置安全包后,里面的文件应该手工删除(PHP目录中默认的文件除外): 
+如以下目录: 
+C:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\ 
+C:\php\dev,C:\php\ext,C:\PHP\extras,C:\PHP\PEAR 
+C:\wmpub 
+C:\upload 
+C:\inetpub 
+
+
+以下是问题的完整说明: 
+
+
+有用户说以下目录 
+C:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\ 
+有users,或everyone写入的权限,大家查下有没有这个问题 
+
+无论是否存在这样的问题,请运行以下命令,可以直接处理权限,从而防止入侵: 
+先在开始中,输入CMD运行后,再输入: 
+ECHO Y|cacls "C:\Documents and Settings\All Users\Application Data\Microsoft\Media Index" /P SYSTEM:F 
+
+另外,以下是近期的安全问题,也请检查 
+
+　关于C:\php下的子目录权限不正常造成服务器被入侵的处理办法 
+
+在2010-11-23我们接到两个用户反映有服务器C:\php\dev,C:\php\ext,C:\PHP\extras,C:\PHP\PEAR 
+中发现了被上传cmd.exe文件,经检查,我们发现这些目录的权限多了users用户组写入权限,经我们检测,默认情况下安装星外的PHP包并没发生这样的问题,有可能是安装其他软件影响了, 
+在不确定原因的情况下,我们发布了新版本的PHP安装包(更新于2010-11-23),您可以登陆星外客服中心下载此PHP安装包来解决这个问题. 
+处理办法 
+1.停止IIS 
+2.在添加删除中删除原来的星外PHP安装包 
+3.删除c:\php目录所有文件 
+4.安装最新版本的PHP安装包,这个安装包会强行将原来错的users权限改正. 
+更新PHP安装包并不会影响用户的网站,不用担心. 
+
+补充 
+( 
+如何确定我的服务器也有这个问题? 
+您可以检查C:\PHP\extras的权限,权限里面有一个高级,如果里面有users组的特殊权限,里面有写入权限就是不正确的. 
+另外,我们发现部分服务器的C:\wmpub目录的权限也存在同样的问题. 
+)
+
+ 
+
+

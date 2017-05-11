@@ -1,0 +1,81 @@
+
+方法一：
+
+useradd -u 0   -o   -g root   -G root -d /home/keio keio
+
+为用户指定空口令时，执行下列形式的命令： 
+
+# passwd -d keio
+
+
+
+删除用户
+
+# userdel -r keio
+
+
+方法二：
+
+如果希望添加一个拥有root权限的账号admin，可参考以下步骤进行，当然，以下的步骤必须有root权限才能运行：
+
+Step1 添加一个一般的用户admin。
+
+useradd -m admin
+
+Step2 改变admin的密码
+
+passwd admin
+
+运行后，系统会询问密码，输入后，会再确认一次。
+
+Step3 将admin的uid与gid都改为0
+
+使用文字编辑器，将
+
+admin:x:1001:100::/home/admin:/bin/bash 改为
+
+admin:x:0:0::/home/admin:/bin/bash 即可。
+
+
+方法三：
+
+添加用户，首先用adduser命令添加一个普通用户，命令如下：
+
+#adduser tommy  //添加一个名为tommy的用户
+#passwd tommy   //修改密码
+Changing password for user tommy.
+New UNIX password:     //在这里输入新密码
+Retype new UNIX password:  //再次输入新密码
+passwd: all authentication tokens updated successfully.
+
+赋予root权限
+
+
+修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
+
+## Allow root to run any commands anywhere
+root    ALL=(ALL)     ALL
+keio   ALL=(ALL)     ALL
+
+
+方法四：
+
+克隆ROOT账号
+
+新建普通用户system
+# useradd system
+# passwd system
+
+添加root shell
+
+# vim /etc/passwd
+
+system:x:0:0:root:/root:/bin/bash
+
+# vim /etc/shadow
+system:$1$OULjNnw/$kAyt7S.RzTJwSwllflI3F1:14921:0:99999:7:::
+
+添加进root组
+
+#vim /etc/group
+root::0:root,systems

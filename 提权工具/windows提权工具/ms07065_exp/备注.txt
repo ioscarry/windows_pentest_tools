@@ -1,0 +1,1 @@
+这个漏洞被微软标记为important，因为在2003偷偷修复了，在xp和2000 professional版本上，这个漏洞利用时候需要验证用户密码，只有在2000 server上，才能够无须身份验证的触发溢出。Windows默认是没有装这个服务的，要安装这个服务可以在添加删除程序里，选择添加 windows组件。 如果是英文版的系统，那么这里可能叫做 Message Queuing 安装完之后，可以通过 net start msmq 来启动服务。服务的进程是 mqsvc.exe

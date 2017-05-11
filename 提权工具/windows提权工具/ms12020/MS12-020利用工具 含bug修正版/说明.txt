@@ -1,0 +1,16 @@
+*
+* MS12-020.rb为严格符合rdp数据包规范的ruby脚本语言的MS12-020测试PoC
+*
+* Chinese Shit.py为网上流传的MS12-020漏洞程序Python脚本wireshark v2修正版
+* 西班牙语XP SP3和Win7/R2都成功
+*
+* Chinese Shit Silic Group修正版.py为基于原Chinese Shit的python脚本的bug校正版本
+* 添加了time.sleep
+*
+* rdp.exe则来自网上广泛流传的花钱购买的版本的利用工具
+* Apache 1.2.19 mod_jk 远程栈溢出漏洞.py是流传最广泛的Sabu@fbi.gov的娱乐版PoC
+*
+*
+* Silic Group - 技术自由 技术创新 技术共享 技术原创 技术进步
+* BlackBap.Org
+*

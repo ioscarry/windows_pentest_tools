@@ -1,0 +1,8 @@
+1)查看有特权的dll文件: 
+命令为:cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 
+
+
+
+2)将asp.dll加入系统权限的列表
+cscript adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\\WINNT\\system32\\idq.dll" "C:\\WINNT\\system32\\inetsrv\\httpext.dll" "C:\\WINNT\\system32\\inetsrv\\httpodbc.dll" "C:\\WINNT\\system32\\inetsrv\\ssinc.dll" "C:\\WINNT\\system32\\msw3prt.dll" "c:\\winnt\\system32\\inetsrv\\asp.dll" 
+

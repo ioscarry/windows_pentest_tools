@@ -1,0 +1,4 @@
+Runs calc.exe on Office XP SP3 with updates < 03/11/08.
+Just for fun...
+
+Marsupilamipowa@hotmail.fr

