@@ -1,0 +1,26 @@
+这款工具可以读取出当前系统的各个用户的密码hash (包括LM和NTLM)，功能跟SAMInside差不多，只不过这个是命令行版本的，而SAMInside是图形界面的。
+在命令行下只输入Pwdump7.exe，就会读取出hash并显示出来，也可以将结果输出到一个文件中去，比如：
+Pwdump7.exe >pass.txt
+我们得到的结果是这个格式的：
+administrator:500:25FC25A0CA659E57ACEDB07452AB7A8E:6C1B3BE8D28CD3E7AB63122C8A572DDF:::
+guest:501:0E175C3EFF8EED1652440321FCD91E4E:2850991451071A5B7A95F2977D4AAEF0:::
+其中第二个冒号后边的，是当前系统用户的登录密码hash，我们可以通过破解该hash获得密码。
+另外，这个工具还有两个其他的用法：
+用法:
+pwdump7.exe                               (Dump system passwords)
+pwdump7.exe -s <samfile> <systemfile>     (Dump passwords from files)
+pwdump7.exe -d <filename> [destionation] (Copy filename to destionation)
+pwdump7.exe -h                           (Show this help)
+第一种用法是最常用的。
+-s 是从一个sam文件中提取hash,这个文件在%systemroot%\config\sam,这里.
+-d 是把一个文件复制到另一个位置，PwDump7.exe -d c:\pagefile.sys pagefile.dmp
+这个转移参数的最大魅力，是可以把进程正在调用的文件复制成功，如复制“pagefile.sys ”文件。
+
+获得了hash后，我们可以到这两个在线破解网站去破解：
+http://www.objectif-securite.ch/en/products.php
+http://cracker.offensive-security.com/index.php
+如果这两个网站也破不了，那只有自己跑了。
+跑hash可以用LC5。
+先安装LC5，然后新建session，然后导入hash，导入后，可以在session选项中设置组合方式，一般选字母和数字就可以了，如果没跑出来,再选下面的特殊字符和字母数字。
+
+by 杨凡

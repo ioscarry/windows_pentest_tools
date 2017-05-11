@@ -1,0 +1,19 @@
+
+Program is designated to convert hashes from format
+of "Login Recovery" program to PWDUMP format.
+
+Program work requires to save accounts with hashes you've got using
+"Login Recovery" to text files, then run convertation of hashes:
+              LRConvert.exe <Filename>
+
+Examples of hashes:
+
+Administrator:500:5E,BC,2B,F0,94,30,6E,F3,2C,D3,E2,82,E9,EB,8A,FD,FC:_1E,AC,12,89,FD,B9,6F,AA,E4,F0,7A,9F,C1,0C,13,0F,XX:::
+Administrator:500:73,E6,3F,B3,9E,46,5A,04,E8,DF,B0,AE,F4,F1,75,F3,10:_3A,55,D5,A0,E9,46,63,74,42,7B,23,E8,A9,B9,2E,3F,XX:::
+Administrator:500:34,68,9A,F6,E4,7C,B3,17,CE,75,B2,E3,84,03,E0,5D,F7:_B4,37,42,69,A1,49,2F,4D,76,AB,61,03,0B,11,66,68,XX:::
+Administrator:500:DB:_46,49,EA,8D,C8,FF,43,60,94,60,61,A2,16,36,D6,52,XX:::
+Administrator:500:1C:_FE,5D,22,B0,47,0F,A7,EB,73,C2,C0,CE,AC,32,0B,12,XX:::
+Administrator:500:DC:_D6,32,40,63,3B,D6,BB,E6,D2,F6,9B,77,E5,5B,80,4B,XX:::
+
+---------------------------------------------
+(c) 2007, InsidePro, http://www.InsidePro.com

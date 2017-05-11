@@ -1,0 +1,30 @@
+先看简介 Quarks PwDump是一个Win32环境下系统授权信息导出工具，目前除此之外还木有没有任何一款工具可以导出如此全面的信息，支持这么多的OS版本，（包括xP/2003/Vista/7/2008/8），经测试相当稳定。作者开发这个工具的原因是现在没有一款工具能同时抓取所有类型的hash和Bitlocker信息。这个工具没有注入任何进程，工作原理是神马呢，源代码值得读一下。
+
+源地址在这：http://code.google.com/p/quarkspwdump/
+
+
+可以导出 :   
+- Local accounts NT/LM hashes + history     本地NT/LM哈希+历史登录记录
+- Domain accounts NT/LM hashes + history  域中NT/LM哈希+历史登录记录
+- Cached domain password                            缓存里的域密码
+- Bitlocker recovery information (recovery passwords & key packages) 使用了Bitlocker的恢复信息(恢复密码&关键包)
+
+
+用法参考说明如下：
+quarks-pwdump.exe <option(s)> <NTDS file>
+Options :参数
+            –dump-hash-local                                                        /*Dump出本机HASH*/
+                      -dump-hash-domain-cached                                        /*Dump出域内缓存的Hash*/
+                      -dump-hash-domain (NTDS_FILE must be specified)    /*Dump出域内的Hash，NTDS_FILE必须被指定*/
+                     –dump-bitlocker (NTDS_FILE must be specified)         /*Dump出BitLocker遗留信息*/
+                     –with-history (optional)
+                      -output-type JOHN/LC (optional, if no=>JOHN)          /*导出为Lc4或John The Ripper支持的格式*/
+                     –output FILE (optional, if no=>stdout)                       /*导出结果到文件*/
+木有其他系统 请大家另行测试。
+
+
+如需导出可以
+
+C:\>quarkspwdump --dump-hash-local --output c:\xxxxx
+
+C:\>quarkspwdump --dump-hash-local --output-type LC --output c:\xxxxx

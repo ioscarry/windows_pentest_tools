@@ -1,0 +1,343 @@
+		----------------------------------------
+		 SAMInside - History of version changes
+		----------------------------------------
+
+2.6.1.0 (08/2007)
+	* LRConvert.exe utility is added to the program archive to convert 
+	  hashes from format of "Login Recovery" program to PWDUMP format.
+
+2.6.0.0 (06/2007)
+	* Support of OS Vista registry SAM-files is added.
+	* Additional utilities "GetHashes" and "GetSyskey" are updated
+	  in the \Tools directory of the program archive.
+	* Link to forum where you can get help with hashes
+	  passwords recovery is added.
+
+2.5.8.1 (04/2007)
+	* Support of large Rainbow-tables (2Gb or larger) is added.
+
+2.5.8.0 (11/2006)
+	* Ability to check passwords with all possible letter cases is
+	  added (NT-hash attack only) to the dictionary attack.
+	* Ability to use symbols replacement tables is added to the
+	  dictionary attack.
+	* Pre-calculated tables attack code is slightly optimized and updated.
+	* FAQ section in the program description is extended.
+	* Some program icons are updated.
+
+2.5.7.2 (10/2006)
+	* Bug fixed which led to incorrect work with passwords containing
+	  symbols from 128...255 ASCII-code range when these symbols are
+	  missing from current Windows code page and being input
+	  using Alt and digits.
+
+2.5.7.1 (08/2006)
+	* Some inessential bugs are fixed.
+
+2.5.7.0 (07/2006)
+	* Bug fixed which could occasionally lead to incorrect SYSKEY reading
+	  from Windows registry SYSTEM file;
+	* New program menu icons;
+	* In the program settings you now can create up to 4 different sets
+	  of the Rainbow-tables (separately for LM- and NT-hashes);
+	* You can now create "English.lng" file directly through the program
+	  settings to use it to translate program interface to any other
+	  language.
+
+2.5.6.2 (06/2006)
+	* Data export HTML-code is slightly improved.
+
+2.5.6.1 (06/2006)
+	* Data export HTML-code is corrected.
+
+2.5.6.0 (05/2006)
+	* User data export in HTML-format.
+	* Russian interface is built in the program EXE-file.
+
+2.5.5.1 (04/2006)
+	* Small error is fixed which could sometimes occur during
+	  dictionary attack.
+
+2.5.5.0 (04/2006)
+	* Bug fixed which could cause LSASS crash under Windows XP + Service
+	  Pack 2 with DEP enabled.
+	* "Found passwords bar" is added to the program to display passwords
+	  as they are recovered.
+	* Bug fixed which could sometimes cause wrong SYSKEY reading from
+ 	  SYSTEM Windows registry file.
+
+2.5.4.1 (04/2006)
+	* Support of several license keys which were published in the
+	  Internet is excluded.
+
+2.5.4.0 (02/2006)
+	* Program settings now have an option to create separate file lists of
+	  pre-calculated tables for LM-hashes attack and NT-hashes attack.
+
+2.5.3.0 (02/2006)
+	* NTLM-tables support is added to the pre-calculated tables attack.
+	* 48x48 program icon is improved for correct displaying
+	  under Windows XP.
+
+2.5.2.1 (01/2006)
+	* Bug fixed which caused error on saving of the latest processed
+	  password in the INI-file when the password begins or ends with
+	  a space symbol.
+	* Support of several license keys which were published in the
+	  Internet is excluded.
+	* The program was recompiled to the EXE-module which uses MFC in
+	  the "Static" mode instead of "Shared" one, so the size has increased
+	  a bit, but the program won't require mfc42.dll under the older
+	  Windows versions.
+
+2.5.2.0 (12/2005)
+	* Feature to process Windows registry SAM-files, which require
+	  to enter system key password (used on Windows log in) to
+	  generate SYSKEY, is added.
+	* Bug fixed which caused failure on adding Guest account
+	  if one has empty password.
+
+2.5.1.0 (11/2005)
+	* More convenient program options window is created.
+	* Feature to edit users' data is added.
+	* Feature to import lists of used dictionaries and *.RT-files
+	  from LCS-files (created by LC4 and LC5 programs).
+	* Extended features of dialog box "Add user".
+	* "IPro_RCrack_LM.dll" library designated for pre-calculated
+	  Rainbow-tables attack is now fully integrated to the program
+	  code and has some bugs fixed.
+
+2.5.0.4 (10/2005)
+	* Fix of incorrect users import from *.LCS files of LC5 program.
+
+2.5.0.3 (10/2005)
+	* Bug fixed which could sometimes appear on "hotkeys" using.
+
+2.5.0.2 (09/2005)
+	* Now license key doesn't depend on Hardware-ID.
+	* Import of users' data from *.HDT files created
+	  by Proactive Password Auditor program is added.
+
+2.5.0.1 (09/2005)
+	* Number of dictionaries for dictionary attack is unlimited now;
+	* Number of tables for pre-calculated tables attack
+	  is unlimited now also;
+	* Some program menu icons improved;
+	* Error fixed which could appear while searching from the users list.
+
+2.5.0.0 (09/2005)
+	* License keys support is added.
+	* Ability to copy information from users list
+	  (passwords, hashes, etc.) to the clipboard is added.
+	* Ability to search in the users list is added.
+	* Two more priority levels - "Above normal" and "High",
+	  which let to additionally increase program speed for 1-3%.
+	* Extended list of functions to work with
+	  dictionary list (in the dictionary attack settings).
+	* Extended list of functions to work with
+	  tables list (in the pre-calculated tables attack settings).
+	* Improved program interface.
+	* Some bugs are fixed.
+
+2.4.1.0 (07/2005)
+	* Brute-force attack speed on small number of LM-hashes
+	  increased by 5-8%.
+	* Link to on-line "Rainbow-tables calculator" is added.
+	* Added feature of situation handling when local hashes
+	  import via connection to system process LSASS is used on computers
+	  with Windows XP+SP2 with DEP enabled what lead to computer reboot.
+
+2.4.0.0 (06/2005)
+	* New kind of attack is added - attack with pre-calculated tables.
+	* Feature of displaying of user's description from SAM registry
+	  files is added.
+	* Cain&Abel hashes import feature is added.
+	* Feature of export of found passwords in
+	  format "User name: Password" is added.
+	* Dictionary attack speed is multiplied several times.
+	* Quantity of users processed is increased to 65536.
+	* Feature of displaying the time of the end of attack is added
+	  to statistics.
+	* Dictionary attack settings are extended.
+	* Statistics export feature is added.
+	* Status line is added to display advanced information about program
+	  menu items.
+	* Statistics panel is moved to the bottom of the program window.
+	* Feature to hide program to tray is added.
+	* One more command line parameter is added:
+	    -minimize - run the program minimized to tray.
+
+2.3.0.1 (02/2005)
+	* Some inessential bugs are fixed.
+
+2.3.0.0 (02/2005)
+	* New feature of hash import from Proactive Windows Security Explorer
+	  program created projects (*.HDT-files) up to
+	  version 1.10 included is added;
+	* Statistics panel is added to display:
+	  - loaded users quantity;
+	  - found passwords quantity;
+	  - general quantity of passwords being processed (during attack);
+	  - quantity of processed passwords (during attack);
+	  - time remained till the end of attack (during attack);
+	* New feature of simultaneous import of several
+	  LC/LCP/LCS/HDT/PWDUMP-files (up to 128 files
+	  at the same time) is added;
+	* Length of password to recover using NT-hash is
+	  increased to maximal 128 symbols;
+	* Mask attack settings are appreciably improved: you can set several
+	  symbol sets to attack each unknown symbol and create your
+	  own symbol sets;
+	* New feature to add LM/NT-hashes lines in PWDUMP-format is added
+	  to the hashes import window;
+	* New dictionary attack settings;
+	* Distributed attack became a part of full brute-force attack;
+	* No duplicated passwords will be added to the file which contains
+	  earlier found passwords ("SAMInside.dic");
+	* SAM/SYSTEM-files processing is improved: feature of SYSKEY version
+	  check is added, and more detailed messaging on errors occurred while
+	  SAM/SYSTEM-files import;
+	* Dictionary attack is performed separately for LM- and NT-hashes
+	  what let to appreciably increase LM-hashes recovery speed;
+	* FAQ section in the program description is appreciably extended.
+	* GetHashes and GetSyskey console utilities for work
+	  with SAM and SYSTEM registry files are updated. GetHashes
+  	  utility got new feature to import hashes from the local computer.
+	* Slight interface improving made and several meaningless bugs fixed.
+
+2.2.6.0 (10/2004)
+	* Feature of attack priority management is added.
+	* Feature of program management through
+      	  command line parameters is added.
+	* Processed users quantity increased up to 16384;
+	* Program settings window is improved, new settings like
+	  sound play on password found, etc. are added.
+	* You will also find two console utilities to work
+	  with SAM/SYSTEM files in the program archive:
+	  - GetSyskey: the program extract SYSKEY from the
+	  SYSTEM-file and stores it in the separate 16-byte file.
+	  This utility is BKHive analogue.
+	  - GetHashes: the program gets users hashes basing
+	  on SAM-file and SYSKEY-file. This utility is SAMDump2 analogue.
+
+2.2.5.0 (07/2004)
+	* New kind of attack - "Distributed attack" is added.
+	  This attack lets to recover passwords by brute-force attack
+	  simultaneously on several computers (maximal number of
+	  computers to perform distributed attack is 512).
+	* Preliminary sorting of hashes is added what lets to attack
+	  any number of hashes with the same speed.
+	* Dictionary attack is improved - Hybrid attack is added what lets
+	  to prepend and append to the checked passwords up to 2 characters.
+	* Limitation of maximal password length by 7 symbols is added to the
+	  settings of brute-force attack by LM-hashes.
+
+2.2.4.1 (06/2004)
+	* Bug of NT-hashes attack when several users have the same
+	  password is fixed.
+
+2.2.4.0 (06/2004)
+	* Feature of *.LCS-files import from LC4 and LC5 programs is added.
+
+2.2.3.0 (06/2004)
+	* Feature of "intellectual" hashes import is added.
+
+2.2.2.0 (05/2004)
+	* Interface is improved.
+	* Feature of LC-files import is added.
+	* Feature of LCP-files import is added.
+	* Feature of SAM-file and SYSKEY import is added.
+	* New feature of adding of hashes through the dialogue box.
+	* All found passwords are automatically added
+	  to the file SAMInside.dic.
+
+2.2.1.0 (03/2004)
+	* Due to thorough optimization of MD4 algorithm used for password
+	  recovery from NT-hashes, speed of NT-hashes recovery of each password
+	  is appreciably increased - for 60-100% for all types of
+	  processors. Brute-force attack of one NT-password on AthlonXP 1700+
+	  reachs 10 million passwords per second!
+	* Quantity of users to work with is increased up to 8192.
+	* Some unessential bugs are fixed.
+
+2.2.0.0 (02/2004)
+	* Password attack speed is increased:
+	  - for LM-hashes for 5-15% on processors of all types.
+	  - for NT-hashes for 10-30% on processors AMD Athlon and Intel P4.
+	* Quantity of users to work with is increased up to 4096.
+	* Length of password to recover by NT-hashes is increased up to
+	  32 symbols.
+	* Length of password to check (by pressing F2) and to perform
+	  dictionary attack is increased up to 128 symbols.
+	* Language-files support lets to work with the program on
+	  your native language.
+	* Mask attack is added (not available in Demo-version).
+	* Dictionary attack is optimized and now available in Demo-version
+	  of the program.
+	* Program code has been rewritten from WinAPI to MFC.
+
+2.1.3.0 (01/2004)
+	* Feature of PWDUMP-files import is added.
+
+2.1.2.0 (12/2003)
+	* Instead of using of external functions CryptoAPI own
+	  realizations of MD4 and MD5 algorithms has been added
+	  to the program.
+
+2.1.1.0 (11/2003)
+	* Feature of PWDUMP-files export is added.
+	* Feature of check for loading of open and currently
+	  used by OS files is added.
+
+2.1.0.3 (10/2003)
+	* New window "About..." is added.
+	* Feature of password check in the dictionaries which
+	  contain national symbols is improved.
+	* Bug of local hashes import is fixed.
+	* Some unessential bugs are fixed.
+
+2.1.0.2 (09/2003)
+	* Feature of working with damaged or incomplete SYSTEM-files
+	  is added, for example, with ones recovered from EFS-disk or
+	  incorrectly recovered by different programs for
+	  accessing to NTFS-disks.
+
+2.1.0.1 (04/2003)
+	* Bug of LM-hash forming is fixed.
+
+2.1.0.0 (04/2003)
+	* Password attack for not only LM-hashes, but also NT-hashes.
+	* Feature of working with currently used SAM-file is added.
+	* Feature of import of hashes from textual files got by other
+	  programs (L0phtCrack, pwdump, etc.) is added.
+	* Feature of generating of LM/NT-hashes using defined password
+	  is added.
+	* Feature of checking of entered password for all users is added.
+	* Dictionary attack is added.
+	* Feature of displaying of found password with correct letter
+	  register is added.
+	* Program code has been rewritten from Assembler to C/Assembler.
+
+2.0.1.0 (04/2003)
+	* Feature of working with passwords/logins in national encoding
+	  is added.
+
+2.0.0.2 (03/2003)
+	* Program code is slightly optimized.
+
+2.0.0.1 (02/2003)
+	* Bug of defining of the SYSKEY version is fixed.
+
+2.0.0.0 (02/2003)
+	* SYSKEY support is added!
+	  Program can decode hashes encrypted by this key - no
+	  analogues in the world!!!
+
+1.1.0.0 (12/2002)
+	* Own icon is added.
+	* Information is added to "Program properties".
+	* Speed is increased for 20%!
+	* New interface of the program.
+
+1.0.0.0 (05/2002)
+	* First public version of SAMInside.

